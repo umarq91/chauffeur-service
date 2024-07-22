@@ -304,12 +304,13 @@ function BookingPage() {
                           type="submit"
                           className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
                         >
-                          Submit
+                         Request a quote
                         </button>
                       </div>
                     </form>
                   </DialogContent>
                 </Dialog>
+              <div className='text-gray-400 text-sm'>{car.cancellationPolicy}</div>
               </div>
             </div>
           </motion.div>
