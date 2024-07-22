@@ -28,7 +28,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="flex justify-between  items-center bg-white bg-opacity-80 font-poppins shadow-lg w-full py-5 px-8 ring-1 ring-white">
+    <nav className="flex justify-around  items-center bg-white bg-opacity-80 font-poppins shadow-lg w-full py-5 px-8 ring-1 ring-white">
       <Link
         to="/"
         className="flex justify-center items-center text-[18px] md:text-[25px] font-bold"

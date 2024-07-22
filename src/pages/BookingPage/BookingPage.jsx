@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaUsers, FaSuitcase } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import emailjs from 'emailjs-com';
+import { carsData } from '@/data/cars';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 function BookingPage() {
   const location = useLocation();
@@ -15,44 +25,93 @@ function BookingPage() {
 
   const [passengers, setPassengers] = useState('');
   const [suitcases, setSuitcases] = useState('');
+  const [selectedCar, setSelectedCar] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    countryCode: '+1',
+    flightNumber: '',
+    message: ''
+  });
 
   // Car data
-  let carsData = [
-    {
-      name: 'SUV',
-      img: 'https://tmna.aemassets.toyota.com/is/image/toyota/toyota/seo-category/desktop/suvssummary2desktop.png?fit=constrain&qlt=100&wid=550&resMode=bisharp',
-      numberofPeople: 4,
-      numberofSuitcases: 2,
-      description: 'A comfortable sedan with high-end features and a smooth driving experience. The Toyota Camry offers a refined interior, advanced safety features, and a reputation for reliability. With a spacious cabin, it accommodates up to four passengers and two suitcases, making it an ideal choice for both business trips and family vacations.',
-      cancellationPolicy: 'Free cancellation up to 72 hours before pick-up',
-      policy: 'On request'
-    },
-    {
-      name: 'Honda Accord',
-      img: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=870&q=80',
-      numberofPeople: 5,
-      numberofSuitcases: 3,
-      description: 'A reliable and spacious sedan with modern amenities. The Honda Accord is known for its comfort, efficiency, and stylish design. It offers ample room for five passengers and three suitcases, ensuring a pleasant and practical ride for any occasion. Advanced technology and safety features enhance the driving experience.',
-      cancellationPolicy: 'Free cancellation up to 48 hours before pick-up',
-      policy: 'On request'
-    },
-    {
-      name: 'Van',
-      img: 'https://www.apricottours.pk/wp-content/uploads/2017/03/premium-high-roof-van.jpg',
-      numberofPeople: 7,
-      numberofSuitcases: 5,
-      description: 'A luxury SUV offering premium features and plenty of space. The BMW X5 combines performance, luxury, and versatility. With seating for seven and space for five suitcases, it is perfect for long trips and group travel. High-end interior materials, cutting-edge technology, and powerful performance make every journey enjoyable.',
-      cancellationPolicy: 'Free cancellation up to 24 hours before pick-up',
-      policy: 'On request'
-    }
-  ];
-
   // Filter cars based on passengers and suitcases
   const filteredCars = carsData.filter(car => {
     const meetsPassengerCriteria = passengers === '' || car.numberofPeople >= parseInt(passengers);
     const meetsSuitcaseCriteria = suitcases === '' || car.numberofSuitcases >= parseInt(suitcases);
     return meetsPassengerCriteria && meetsSuitcaseCriteria;
   });
+
+  const handleBookClick = (car) => {
+    setSelectedCar(car);
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    setSelectedCar(null);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value });
+  };
+
+  const handleModalSubmit = (e) => {
+    e.preventDefault();
+    console.log("test");
+    const emailContent = `
+    <div style="font-family: Arial, sans-serif; color: #333;">
+      <header style="background-color: #f4f4f4; padding: 20px; text-align: center;">
+        <img src="your-logo-url-here" alt="Company Logo" style="width: 150px;">
+      </header>
+      <main style="padding: 20px;">
+        <h2>Offer Enquiry</h2>
+        <p>This is a new offer enquiry for a chauffeured service from Luxury transport & chauffeur service.</p>
+        <p>Please send your offer/quotation directly to <strong>${userInfo.fullName}</strong> at <strong>${userInfo.email}</strong></p>
+        <h3>Booking Details</h3>
+        <p><strong>Date:</strong> ${date}</p>
+        <p><strong>Time:</strong> ${time}</p>
+        <p><strong>Pick Up Location:</strong> ${pickUpLocation}</p>
+        <p><strong>Drop Off Location:</strong> ${dropOffLocation}</p>
+        <p><strong>Days:</strong> ${days}</p>
+        <p><strong>Service:</strong> ${service}</p>
+        <p><strong>Passengers:</strong> ${passengers}</p>
+        <p><strong>Suitcases:</strong> ${suitcases}</p>
+        <p><strong>Car Name:</strong> ${selectedCar.name}</p>
+        <h3>User Information</h3>
+        <p><strong>Full Name:</strong> ${userInfo.fullName}</p>
+        <p><strong>Email:</strong> ${userInfo.email}</p>
+        <p><strong>Phone Number:</strong> ${userInfo.countryCode} ${userInfo.phoneNumber}</p>
+        <p><strong>Flight Number:</strong> ${userInfo.flightNumber}</p>
+        <p><strong>Message:</strong> ${userInfo.message}</p>
+      </main>
+      <footer style="background-color: #f4f4f4; padding: 20px; text-align: center;">
+        <p>&copy; ${new Date().getFullYear()} Your Company Name. All rights reserved.</p>
+      </footer>
+    </div>
+  `;
+
+  emailjs.send('service_oxx754x', 'template_7uq7eqg', {
+    to_name: userInfo.fullName,
+    from_name: 'Your Company Name', // or get this dynamically if needed
+    message: emailContent,
+  }, 'ZB0s5MrgpcBV07keG')
+  .then((response) => {
+    console.log('SUCCESS!', response.status, response.text);
+    alert('Booking request sent successfully!');
+  }, (error) => {
+    console.log('FAILED...', error);
+    alert('Failed to send booking request.');
+  });
+
+
+
+    setShowModal(false);
+    setSelectedCar(null);
+  };
 
   return (
     <div className="min-h-screen flex flex-col-reverse md:flex-row bg-gray-100 p-6 md:p-8">
@@ -107,7 +166,7 @@ function BookingPage() {
               >
                 <option value="">Any</option>
                 {[...Array(7)].map((_, i) => (
-                  <option key={i+1} value={i+1}>{i+1}</option>
+                  <option key={i + 1} value={i + 1}>{i + 1}</option>
                 ))}
               </select>
             </div>
@@ -121,7 +180,7 @@ function BookingPage() {
               >
                 <option value="">Any</option>
                 {[...Array(5)].map((_, i) => (
-                  <option key={i+1} value={i+1}>{i+1}</option>
+                  <option key={i + 1} value={i + 1}>{i + 1}</option>
                 ))}
               </select>
             </div>
@@ -130,7 +189,7 @@ function BookingPage() {
 
         {/* Car Listings */}
         {filteredCars.map((car) => (
-          <motion.div 
+          <motion.div
             className="flex flex-col md:flex-row mb-8 bg-gray-50 p-6 rounded-lg shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
             key={car.name}
             whileHover={{ scale: 1.05 }}
@@ -154,8 +213,103 @@ function BookingPage() {
                 </div>
               </div>
               <div className="flex justify-between items-center mt-4">
-                <button className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2">Book</button>
-                <span className="text-sm text-gray-500">{car.cancellationPolicy}</span>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button
+                      onClick={() => handleBookClick(car)}
+                      className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+                    >
+                      Book Now
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="bg-white">
+                    <DialogHeader>
+                      <DialogTitle>Book {car.name}</DialogTitle>
+                      <DialogDescription>Fill in your details to complete the booking.</DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={handleModalSubmit}>
+                      <div className="space-y-4">
+                        <div>
+                          <label htmlFor="fullName" className="block text-gray-700">Full Name</label>
+                          <input
+                            type="text"
+                            id="fullName"
+                            name="fullName"
+                            className="w-full p-2 border border-gray-300 rounded"
+                            value={userInfo.fullName}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="email" className="block text-gray-700">Email</label>
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            className="w-full p-2 border border-gray-300 rounded"
+                            value={userInfo.email}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="phoneNumber" className="block text-gray-700">Phone Number</label>
+                          <input
+                            type="tel"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            className="w-full p-2 border border-gray-300 rounded"
+                            value={userInfo.phoneNumber}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="countryCode" className="block text-gray-700">Country Code</label>
+                          <input
+                            type="text"
+                            id="countryCode"
+                            name="countryCode"
+                            className="w-full p-2 border border-gray-300 rounded"
+                            value={userInfo.countryCode}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="flightNumber" className="block text-gray-700">Flight Number</label>
+                          <input
+                            type="text"
+                            id="flightNumber"
+                            name="flightNumber"
+                            className="w-full p-2 border border-gray-300 rounded"
+                            value={userInfo.flightNumber}
+                            onChange={handleChange}
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="message" className="block text-gray-700">Message</label>
+                          <textarea
+                            id="message"
+                            name="message"
+                            className="w-full p-2 border border-gray-300 rounded"
+                            value={userInfo.message}
+                            onChange={handleChange}
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div className="mt-6 flex justify-end">
+                        <button
+                          type="submit"
+                          className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </motion.div>
