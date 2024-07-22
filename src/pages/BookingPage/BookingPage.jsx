@@ -55,63 +55,83 @@ function BookingPage() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col flex-col-reverse md:flex-row bg-gray-100 p-4 md:p-8">
-      <div className="w-full md:w-1/4 bg-white p-6 md:p-8 rounded-md shadow-md mb-6 md:mb-0">
-        <h1 className="text-2xl font-bold mb-4">Booking Summary</h1>
-        <p className="text-gray-700 mb-2">Date: {date}</p>
-        <p className="text-gray-700 mb-2">Time: {time}</p>
-        <p className="text-gray-700 mb-2">Pick Up Location: {pickUpLocation}</p>
-        {service === 'airportTransfer' && (
-          <p className="text-gray-700 mb-2">Drop Off Location: {dropOffLocation}</p>
-        )}
-        {service === 'fullDayChauffeur' && (
-          <p className="text-gray-700 mb-2">Days: {days}</p>
-        )}
-        <p className="text-gray-700 mb-2">Service: {service}</p>
+    <div className="min-h-screen flex flex-col-reverse md:flex-row bg-gray-100 p-6 md:p-8">
+      {/* Booking Summary */}
+      <div className="w-full md:w-1/4 bg-white p-6 rounded-lg shadow-lg mb-6 md:mb-0">
+        <h1 className="text-2xl font-bold mb-6 text-gray-800">Booking Summary</h1>
+        <div className="space-y-6">
+          <div className="flex flex-col gap-2">
+            <div className="text-gray-400 uppercase text-sm">Date</div>
+            <div className="text-gray-800 text-base">{date}</div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <div className="text-gray-400 uppercase text-sm">Time</div>
+            <div className="text-gray-800 text-base">{time}</div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <div className="text-gray-400 uppercase text-sm">Pick Up Location</div>
+            <div className="text-gray-800 text-base">{pickUpLocation}</div>
+          </div>
+          {service === 'airportTransfer' && (
+            <div className="flex flex-col gap-2">
+              <div className="text-gray-400 uppercase text-sm">Drop Off Location</div>
+              <div className="text-gray-800 text-base">{dropOffLocation}</div>
+            </div>
+          )}
+          {service === 'fullDayChauffeur' && (
+            <div className="flex flex-col gap-2">
+              <div className="text-gray-400 uppercase text-sm">Days</div>
+              <div className="text-gray-800 text-base">{days}</div>
+            </div>
+          )}
+          <div className="flex flex-col gap-2">
+            <div className="text-gray-400 uppercase text-sm">Service Type</div>
+            <div className="text-gray-800 text-base capitalize">{service}</div>
+          </div>
+        </div>
       </div>
-      <div className="w-full md:w-3/4 bg-white p-6 md:p-8 rounded-md shadow-md">
-        <div className="mb-6">
-          <h2 className="text-xl font-bold mb-4">Filter Results</h2>
-          <div className="flex flex-col md:flex-row md:space-x-4">
+
+      {/* Filter and Car Listings */}
+      <div className="w-full md:w-3/4 bg-white p-6 rounded-lg shadow-lg">
+        {/* Filter */}
+        <div className="mb-6 bg-gray-100 px-6 py-8 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">Filter Results</h2>
+          <div className="flex flex-col md:flex-row md:space-x-6">
             <div className='w-full md:w-1/2 mb-4 md:mb-0'>
-              <label htmlFor="passengers" className="block text-gray-700 mb-1">Passengers</label>
+              <label htmlFor="passengers" className="block text-gray-700 mb-2 font-medium">Passengers</label>
               <select
                 id="passengers"
-                className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={passengers}
                 onChange={(e) => setPassengers(e.target.value)}
               >
                 <option value="">Any</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
+                {[...Array(7)].map((_, i) => (
+                  <option key={i+1} value={i+1}>{i+1}</option>
+                ))}
               </select>
             </div>
             <div className='w-full md:w-1/2'>
-              <label htmlFor="suitcases" className="block text-gray-700 mb-1">Suitcases</label>
+              <label htmlFor="suitcases" className="block text-gray-700 mb-2 font-medium">Suitcases</label>
               <select
                 id="suitcases"
-                className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={suitcases}
                 onChange={(e) => setSuitcases(e.target.value)}
               >
                 <option value="">Any</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                {[...Array(5)].map((_, i) => (
+                  <option key={i+1} value={i+1}>{i+1}</option>
+                ))}
               </select>
             </div>
           </div>
         </div>
+
+        {/* Car Listings */}
         {filteredCars.map((car) => (
           <motion.div 
-            className="flex flex-col md:flex-row mb-8 bg-gray-50 p-6 rounded-lg shadow-md cursor-pointer" 
+            className="flex flex-col md:flex-row mb-8 bg-gray-50 p-6 rounded-lg shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
             key={car.name}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -120,21 +140,21 @@ function BookingPage() {
             <div className="w-full md:w-2/3 p-4 flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-2xl font-bold">{car.name}</h2>
-                  <span className="text-white px-3 py-2 rounded-md text-sm bg-gray-400">{car.policy}</span>
+                  <h2 className="text-2xl font-semibold text-gray-800">{car.name}</h2>
+                  <span className="bg-gray-400 text-white px-3 py-1 rounded-md text-sm">{car.policy}</span>
                 </div>
                 <p className="mt-2 text-gray-700">{car.description}</p>
                 <div className="flex mt-4 text-gray-600">
                   <div className="flex items-center mr-6">
-                    <FaUsers className="mr-2" /> {car.numberofPeople} Passengers
+                    <FaUsers className="mr-2 text-blue-500" /> {car.numberofPeople} Passengers
                   </div>
                   <div className="flex items-center">
-                    <FaSuitcase className="mr-2" /> {car.numberofSuitcases} Suitcases
+                    <FaSuitcase className="mr-2 text-blue-500" /> {car.numberofSuitcases} Suitcases
                   </div>
                 </div>
               </div>
               <div className="flex justify-between items-center mt-4">
-                <button className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Book</button>
+                <button className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2">Book</button>
                 <span className="text-sm text-gray-500">{car.cancellationPolicy}</span>
               </div>
             </div>
