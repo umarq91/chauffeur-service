@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import { BrowserRouter, Route, Routes} from "react-router-dom"
-import './App.css'
 import HeroPage from './pages/LandingPage/Hero'
 import BookingPage from './pages/BookingPage/BookingPage'
 function App() {
