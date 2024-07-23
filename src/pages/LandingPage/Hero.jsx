@@ -40,31 +40,49 @@ function HeroPage() {
     >
       <div className="absolute inset-0 bg-black opacity-50"></div> {/* Overlay */}
 
-      <div className="container mx-auto px-4 flex flex-col  relative">
+      <div className="container mx-auto px-4 flex flex-col relative">
         {/* left */}
-        <div className="text-left    text-white mb-5 md:mb-4 ">
+        <div className="text-left text-white mb-5 md:mb-4">
           <h1 className="text-4xl font-bold mb-4 md:w-1/2">PREMIUM SERVICES TAILORED FOR YOU</h1>
           <p className="text-xl">International Ground Transportation and more. Make Your Online Reservation</p>
         </div>
         {/* Right */}
         <div className="md:w-2/3 self-center">
           <div className="bg-white p-8 rounded shadow-lg w-full max-w-7xl">
-            <div className="flex gap-2 justify-center mb-6">
+            <div className="flex flex-wrap gap-2 justify-center mb-6">
               <button
                 onClick={() => setService('airportTransfer')}
-                className={`px-4 py-2 rounded-l-md ${service === 'airportTransfer' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
+                className={`px-4 py-2 rounded-md ${service === 'airportTransfer' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
               >
                 Airport Transfer
               </button>
               <button
                 onClick={() => setService('fullDayChauffeur')}
-                className={`px-4 py-2 rounded-r-md ${service === 'fullDayChauffeur' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
+                className={`px-4 py-2 rounded-md ${service === 'fullDayChauffeur' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
               >
                 Full Day Chauffeur
               </button>
+              <button
+                onClick={() => navigate('/booking/meetngreet')}
+                className={`px-4 py-2 rounded-md hover:bg-indigo-600 hover:text-white bg-gray-200`}
+              >
+                MEET & GREET
+              </button>
+              <button
+                onClick={() => navigate('/booking/busesncoaches')}
+                className={`px-4 py-2 rounded-md hover:bg-indigo-600 hover:text-white  bg-gray-200`}
+              >
+                BUSES & COACHES
+              </button>
+              <button
+                onClick={() => navigate('/booking/planmytrip')}
+                className={`px-4 py-2 rounded-md hover:bg-indigo-600 hover:text-white  bg-gray-200`}
+              >
+                MULTIPLE REQUESTS
+              </button>
             </div>
-            <form onSubmit={handleSubmit} className="flex bg-white p-7 flex-col md:flex-row gap-4 items-center">
-              <div className="flex-1">
+            <form onSubmit={handleSubmit} className="flex flex-wrap bg-white p-7 gap-4 items-center">
+              <div className="flex-1 min-w-[250px]">
                 <label className="block text-gray-600 text-sm text-left">Pick Up Date</label>
                 <DatePicker
                   selected={startDate}
@@ -77,7 +95,7 @@ function HeroPage() {
                   dropdownMode="select"
                 />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 min-w-[250px]">
                 <label className="block text-gray-600 text-sm text-left">Pick Up Time</label>
                 <input
                   type="time"
@@ -86,7 +104,7 @@ function HeroPage() {
                   className="mt-1 p-1.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
               </div>
-              <div className="flex-1">
+              <div className="flex-1 min-w-[250px]">
                 <label className="block text-gray-600 text-sm text-left">Pick Up Location</label>
                 <input
                   type="text"
@@ -97,7 +115,7 @@ function HeroPage() {
                 />
               </div>
               {service === 'airportTransfer' ? (
-                <div className="flex-1">
+                <div className="flex-1 min-w-[250px]">
                   <label className="block text-gray-600 text-sm text-left">Drop Off Location</label>
                   <input
                     type="text"
@@ -108,13 +126,14 @@ function HeroPage() {
                   />
                 </div>
               ) : (
-                <div className="flex-1">
+                <div className="flex-1 min-w-[250px]">
                   <label className="block text-gray-600 text-sm text-left">Days</label>
                   <input
                     type="number"
                     value={days}
                     onChange={(e) => setDays(e.target.value)}
                     min="1"
+                    max="8"
                     className="mt-1 p-1.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
@@ -126,26 +145,6 @@ function HeroPage() {
                 Book
               </button>
             </form>
-            <div className='w-full flex justify-center gap-4'>
-              <button
-                onClick={() => navigate('/booking/meetngreet')}
-                className={`px-4 py-4 mt-3 hover:bg-indigo-600 hover:text-white bg-white border-2 border-black`}
-              >
-                MEET & GREET
-              </button>
-              <button
-                onClick={() => navigate('/booking/busesncoaches')}
-                className={`px-4 py-4 mt-3 hover:bg-indigo-600 hover:text-white bg-white border-2 border-black`}
-              >
-                BUSES & COACHES
-              </button>
-              <button
-                onClick={() => navigate('/booking/planmytrip')}
-                className={`px-4 py-4 mt-3 hover:bg-indigo-600 hover:text-white bg-white border-2 border-black`}
-              >
-                MULTIPLE REQUESTS
-              </button>
-            </div>
             {errorMessage && (
               <div className="mt-4 text-red-600 text-center">
                 {errorMessage}

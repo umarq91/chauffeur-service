@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import emailjs from 'emailjs-com';
 import { carsData } from '@/data/cars';
-
 import CarCards from '@/components/carCards';
 
 function BookingPage() {
@@ -15,7 +14,7 @@ function BookingPage() {
   const dropOffLocation = queryParams.get('dropOffLocation');
   const days = queryParams.get('days');
   const service = queryParams.get('service');
-  let navigate =useNavigate();
+  let navigate = useNavigate();
 
   const [passengers, setPassengers] = useState('');
   const [suitcases, setSuitcases] = useState('');
@@ -88,20 +87,18 @@ function BookingPage() {
     </div>
   `;
 
-  emailjs.send('service_oxx754x', 'template_7uq7eqg', {
-    to_name: userInfo.fullName,
-    from_name: 'Your Company Name', // or get this dynamically if needed
-    message: emailContent,
-  }, 'ZB0s5MrgpcBV07keG')
-  .then((response) => {
-    console.log('SUCCESS!', response.status, response.text);
-    alert('Booking request sent successfully!');
-  }, (error) => {
-    console.log('FAILED...', error);
-    alert('Failed to send booking request.');
-  });
-
-
+    emailjs.send('service_oxx754x', 'template_7uq7eqg', {
+      to_name: userInfo.fullName,
+      from_name: 'Your Company Name', // or get this dynamically if needed
+      message: emailContent,
+    }, 'ZB0s5MrgpcBV07keG')
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        alert('Booking request sent successfully!');
+      }, (error) => {
+        console.log('FAILED...', error);
+        alert('Failed to send booking request.');
+      });
 
     setShowModal(false);
     setSelectedCar(null);
@@ -141,17 +138,16 @@ function BookingPage() {
             <div className="text-gray-400 uppercase text-sm">Service Type</div>
             <div className="text-gray-800 text-base capitalize">{service}</div>
           </div>
-          <button 
-          onClick={()=>Navigate('/')}
-          className='w-2/3 flex justify-center items-center rounded-full py-2 hover:bg-opacity-80 bg-gray-300'> 
-          <IoIosArrowRoundBack size={20}/>
-          Edit Booking
+          <button
+            onClick={() => navigate('/')}
+            className='w-2/3 flex justify-center items-center rounded-full py-2 hover:bg-opacity-80 bg-gray-300'>
+            <IoIosArrowRoundBack size={20} />
+            Edit Booking
           </button>
         </div>
       </div>
 
-
-{/* Right  */}
+      {/* Right */}
       {/* Filter and Car Listings */}
       <div className="w-full md:w-3/4 bg-white p-6 rounded-lg shadow-lg">
         {/* Filter */}
@@ -191,14 +187,15 @@ function BookingPage() {
 
         {/* Car Listings */}
         {filteredCars.map((car) => (
-         <CarCards key={car.name} car={car} 
-         handleModalSubmit={handleModalSubmit}
-         userInfo={userInfo}
-         handleChange={handleChange}
-         handleBookClick={handleBookClick}
-         
-         />
+          <CarCards key={car.name} car={car}
+            handleModalSubmit={handleModalSubmit}
+            userInfo={userInfo}
+            handleChange={handleChange}
+            handleBookClick={handleBookClick}
+          />
         ))}
+
+        
       </div>
     </div>
   );

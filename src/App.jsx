@@ -6,6 +6,7 @@ import Navbar from './layout/Navbar'
 import Footer from './layout/Footer'
 import MeetnGreet from './pages/MeetnGreet'
 import BusesnCoaches from './pages/BusesnCoaches'
+import MultipleRequests from './pages/MultipleRequests'
 function App() {
 
   return (
@@ -18,6 +19,8 @@ function App() {
     <Route path='/booking' element={<BookingPage />}/>
     <Route path='/booking/meetngreet' element={<MeetnGreet/>}/>
     <Route path='/booking/busesncoaches' element={<BusesnCoaches/>}/>
+    <Route path='/booking/planmytrip' element={<MultipleRequests/>}/>
+
   </Routes>
   <Footer/>
   </BrowserRouter>
