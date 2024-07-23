@@ -26,5 +26,32 @@ const carsData = [
     description: 'A luxury SUV offering premium features and plenty of space. The BMW X5 combines performance, luxury, and versatility. With seating for seven and space for five suitcases, it is perfect for long trips and group travel. High-end interior materials, cutting-edge technology, and powerful performance make every journey enjoyable.',
     cancellationPolicy: 'Free cancellation up to 24 hours before pick-up',
     policy: 'On request'
+  },
+  {
+    name: 'Honda Small Rs Concept Car',
+    img: 'https://ic1.maxabout.us/news/2018/02/2018-Hyundai-i20-Official-1-e1524200662649.jpg',
+    numberofPeople: 17,
+    numberofSuitcases: 5,
+    description: 'A luxury SUV offering premium features and plenty of space. The BMW X5 combines performance, luxury, and versatility. With seating for seven and space for five suitcases, it is perfect for long trips and group travel. High-end interior materials, cutting-edge technology, and powerful performance make every journey enjoyable.',
+    cancellationPolicy: 'Free cancellation up to 24 hours before pick-up',
+    policy: 'On request'
+  },
+  {
+    name: 'Luxury Car',
+    img: 'https://www.topgear.com/sites/default/files/news-listicle/image/2023/09/LEAD.jpg',
+    numberofPeople: 2,
+    numberofSuitcases: 5,
+    description: 'A luxury SUV offering premium features and plenty of space. The BMW X5 combines performance, luxury, and versatility. With seating for seven and space for five suitcases, it is perfect for long trips and group travel. High-end interior materials, cutting-edge technology, and powerful performance make every journey enjoyable.',
+    cancellationPolicy: 'Free cancellation up to 24 hours before pick-up',
+    policy: 'On request'
+  },
+  {
+    name: 'Van',
+    img: 'https://www.apricottours.pk/wp-content/uploads/2017/03/premium-high-roof-van.jpg',
+    numberofPeople: 3,
+    numberofSuitcases: 5,
+    description: 'A luxury SUV offering premium features and plenty of space. The BMW X5 combines performance, luxury, and versatility. With seating for seven and space for five suitcases, it is perfect for long trips and group travel. High-end interior materials, cutting-edge technology, and powerful performance make every journey enjoyable.',
+    cancellationPolicy: 'Free cancellation up to 24 hours before pick-up',
+    policy: 'On request'
   }
 ];
