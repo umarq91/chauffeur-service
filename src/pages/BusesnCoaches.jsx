@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function MeetnGreet() {
+function BusesnCoaches() {
   const [formData, setFormData] = useState({
     people: "",
     luggagebags: "",
@@ -39,11 +39,12 @@ function MeetnGreet() {
       >
         <div className="flex flex-col mx-auto w-full lg:w-theme-dw py-24 px-11 md:px-0">
           <h2 className="font-bold text-4xl md:text-6xl uppercase text-white mb-4">
-            Unlock Memorable Moments with Our Exclusive Meet and Greet Service!
+          RIDE IN COMFORT, ARRIVE IN STYLE: YOUR PREMIER BUSES AND COACHES SERVICE AWAITS!
           </h2>
           <div className="flex flex-col text-white mb-12">
             <div className="text-xl md:text-2xl">
-              Personalized Experiences, Lasting Connections
+            Seamless Travel Solutions for Every Occasion
+            Choose Luxury, Choose Convenience with Our Exclusive Buses and Coaches Service
             </div>
             <div className="text-xl md:text-2xl">
               Elevate Your Events with Our Premium Meet and Greet Services
@@ -52,11 +53,11 @@ function MeetnGreet() {
         </div>
       </section>
 
-      <form onSubmit={handleSubmit} className="bg-gray-200 text-black min-h-screen max-w-6xl mx-auto p-10 rounded-lg  space-y-12">
+      <form onSubmit={handleSubmit} className="bg-gray-200 text-black min-h-screen max-w-6xl mx-auto p-10 rounded-lg space-y-12">
         {/* Meet and Greet */}
         <div className="w-full">
-          <h1 className="text-2xl font-bold mb-4">Meet & Greet</h1>
-          <h3 className="text-lg mb-6">Choose the Number of People and Luggage</h3>
+          <h1 className="text-2xl font-bold mb-4">Buses & Caoches</h1>
+          <h3 className="text-lg mb-6">Choose the No of People and Luggage</h3>
           <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
             <div>
               <label htmlFor="people" className="block text-base font-normal mb-2">Number of People *</label>
@@ -125,4 +126,4 @@ function MeetnGreet() {
   );
 }
 
-export default MeetnGreet;
+export default BusesnCoaches;
