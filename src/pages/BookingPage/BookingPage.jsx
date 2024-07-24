@@ -73,14 +73,12 @@ function BookingPage() {
 
     This is a new offer enquiry for a chauffeured service from Luxury transport & chauffeur service.
 
-    Please send your offer/quotation directly to ${userInfo.fullName} at ${userInfo.email}
-
     Booking Details:
     Date: ${date}
     Time: ${time}
     Pick Up Location: ${pickUpLocation}
-    Drop Off Location: ${dropOffLocation}
-    Days: ${days}
+    ${dropOffLocation && ` Drop Off Location: ${dropOffLocation}` }
+   ${days && ` Days: ${days}` }
     Service: ${service}
 
     Car Name: ${selectedCar.name}
@@ -98,7 +96,7 @@ function BookingPage() {
   `;
 
     emailjs.send('service_oxx754x', 'template_7uq7eqg', {
-      to_name: "Umar",
+      to_name: "Company Name", // Company Name
       from_name: userInfo.fullName,
       message: emailContent,
     }, 'ZB0s5MrgpcBV07keG')
@@ -112,7 +110,57 @@ function BookingPage() {
           description: `Requested a quote for ${selectedCar.name}`,
           className: "bg-white text-gray-800"
         });
-       
+
+        // Send Copy To the Client email as well 
+        const clientMessage = `
+        Dear ${userInfo.fullName},
+
+        Thank you for choosing our services for your transportation needs. 
+
+        We have successfully received your booking request with the following details:
+
+        **Booking Details:**
+        Date: ${date}
+        Time: ${time}
+        Pick Up Location: ${pickUpLocation}
+        ${dropOffLocation ? `Drop Off Location: ${dropOffLocation}` : ''}
+        ${days ? `Days: ${days}` : ''}
+        Service: ${service}
+
+        **Car Details:**
+        Car Name: ${selectedCar.name}
+        Pax Capacity: ${passengers}
+        Luggage Capacity: ${suitcases}
+
+        **User Information:**
+        Full Name: ${userInfo.fullName}
+        Email: ${userInfo.email}
+        Phone Number: ${userInfo.phoneNumber}
+        Flight Number: ${userInfo.flightNumber}
+        Message: ${userInfo.message}
+
+        Our team is now processing your request and will get back to you shortly with a confirmation and further details.
+
+        If you have any questions or need to make changes to your booking, please do not hesitate to contact us.
+
+        Best regards,
+        [Your Company Name]
+        `;
+
+        emailjs.send('service_oxx754x', 'template_fdjemvn', {
+          to_email: userInfo.email,
+          from_name: "Luxury Transport & Chauffeur Service",
+          message: clientMessage,
+        }, 'ZB0s5MrgpcBV07keG').then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+        }).catch((error) => {
+          toast({
+            title: "Email Failed",
+            description: 'Failed to send booking request.',
+            className: "bg-white text-red-800"
+          })
+        })
+
       }, (error) => {
         console.log('FAILED...', error);
         setShowModal(false);
@@ -124,8 +172,11 @@ function BookingPage() {
           className: "bg-white text-red-800"
         });
       });
-    console.log(emailContent);
-  };
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000);
+    };
+
 
   return (
     <div className="min-h-screen font-poppins flex flex-col-reverse md:flex-row bg-gray-100 p-6 md:p-8">
