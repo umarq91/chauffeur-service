@@ -4,8 +4,10 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import emailjs from 'emailjs-com';
 import { carsData } from '@/data/cars';
 import CarCards from '@/components/carCards';
+import { useToast } from '@/components/ui/use-toast';
 
 function BookingPage() {
+  const { toast } = useToast();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const date = queryParams.get('date');
@@ -24,12 +26,22 @@ function BookingPage() {
     fullName: '',
     email: '',
     phoneNumber: '',
-    countryCode: '+1',
     flightNumber: '',
-    message: ''
+    message: '',
+    pax: '',
+    luggage: ''
   });
 
-  // Car data
+  const initialUserInfo = {
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    flightNumber: '',
+    message: '',
+    pax: '',
+    luggage: ''
+  };
+
   // Filter cars based on passengers and suitcases
   const filteredCars = carsData.filter(car => {
     const meetsPassengerCriteria = passengers === '' || car.numberofPeople >= parseInt(passengers);
@@ -39,6 +51,8 @@ function BookingPage() {
 
   const handleBookClick = (car) => {
     setSelectedCar(car);
+    setPassengers(car.numberofPeople);
+    setSuitcases(car.numberofSuitcases);
     setShowModal(true);
   };
 
@@ -54,54 +68,63 @@ function BookingPage() {
 
   const handleModalSubmit = (e) => {
     e.preventDefault();
-    console.log("test");
     const emailContent = `
-    <div style="font-family: Arial, sans-serif; color: #333;">
-      <header style="background-color: #f4f4f4; padding: 20px; text-align: center;">
-        <img src="your-logo-url-here" alt="Company Logo" style="width: 150px;">
-      </header>
-      <main style="padding: 20px;">
-        <h2>Offer Enquiry</h2>
-        <p>This is a new offer enquiry for a chauffeured service from Luxury transport & chauffeur service.</p>
-        <p>Please send your offer/quotation directly to <strong>${userInfo.fullName}</strong> at <strong>${userInfo.email}</strong></p>
-        <h3>Booking Details</h3>
-        <p><strong>Date:</strong> ${date}</p>
-        <p><strong>Time:</strong> ${time}</p>
-        <p><strong>Pick Up Location:</strong> ${pickUpLocation}</p>
-        <p><strong>Drop Off Location:</strong> ${dropOffLocation}</p>
-        <p><strong>Days:</strong> ${days}</p>
-        <p><strong>Service:</strong> ${service}</p>
-        <p><strong>Passengers:</strong> ${passengers}</p>
-        <p><strong>Suitcases:</strong> ${suitcases}</p>
-        <p><strong>Car Name:</strong> ${selectedCar.name}</p>
-        <h3>User Information</h3>
-        <p><strong>Full Name:</strong> ${userInfo.fullName}</p>
-        <p><strong>Email:</strong> ${userInfo.email}</p>
-        <p><strong>Phone Number:</strong> ${userInfo.countryCode} ${userInfo.phoneNumber}</p>
-        <p><strong>Flight Number:</strong> ${userInfo.flightNumber}</p>
-        <p><strong>Message:</strong> ${userInfo.message}</p>
-      </main>
-      <footer style="background-color: #f4f4f4; padding: 20px; text-align: center;">
-        <p>&copy; ${new Date().getFullYear()} Your Company Name. All rights reserved.</p>
-      </footer>
-    </div>
+    Offer Enquiry
+
+    This is a new offer enquiry for a chauffeured service from Luxury transport & chauffeur service.
+
+    Please send your offer/quotation directly to ${userInfo.fullName} at ${userInfo.email}
+
+    Booking Details:
+    Date: ${date}
+    Time: ${time}
+    Pick Up Location: ${pickUpLocation}
+    Drop Off Location: ${dropOffLocation}
+    Days: ${days}
+    Service: ${service}
+
+    Car Name: ${selectedCar.name}
+    PaxCapacity: ${passengers}
+    luggageCapacity: ${suitcases}
+
+    User Information:
+    Full Name: ${userInfo.fullName}
+    Email: ${userInfo.email}
+    Flight Number: ${userInfo.flightNumber}
+    phone number : ${userInfo.phoneNumber}
+    pax: ${userInfo.numberOfPeople}
+    luggage: ${userInfo.numberOfSuitcases}
+    Message: ${userInfo.message}
   `;
 
     emailjs.send('service_oxx754x', 'template_7uq7eqg', {
-      to_name: userInfo.fullName,
-      from_name: 'Your Company Name', // or get this dynamically if needed
+      to_name: "Umar",
+      from_name: userInfo.fullName,
       message: emailContent,
     }, 'ZB0s5MrgpcBV07keG')
       .then((response) => {
         console.log('SUCCESS!', response.status, response.text);
-        alert('Booking request sent successfully!');
+        setShowModal(false);
+        setSelectedCar(null);
+        setUserInfo(initialUserInfo);
+        toast({
+          title: "Email Sent",
+          description: `Requested a quote for ${selectedCar.name}`,
+          className: "bg-white text-gray-800"
+        });
+       
       }, (error) => {
         console.log('FAILED...', error);
-        alert('Failed to send booking request.');
+        setShowModal(false);
+        setSelectedCar(null);
+        setUserInfo(initialUserInfo);
+        toast({
+          title: "Email Failed",
+          description: 'Failed to send booking request.',
+          className: "bg-white text-red-800"
+        });
       });
-
-    setShowModal(false);
-    setSelectedCar(null);
+    console.log(emailContent);
   };
 
   return (
@@ -194,8 +217,6 @@ function BookingPage() {
             handleBookClick={handleBookClick}
           />
         ))}
-
-        
       </div>
     </div>
   );

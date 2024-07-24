@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -6,11 +6,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 import { motion } from 'framer-motion';
 import { FaUsers, FaSuitcase } from 'react-icons/fa';
-function carCards({ car, handleModalSubmit, handleBookClick,userInfo,handleChange }) {
+
+function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleChange }) {
   return (
     <motion.div
       className="flex flex-col md:flex-row mb-8 bg-gray-50 p-6 rounded-lg shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
@@ -53,7 +54,7 @@ function carCards({ car, handleModalSubmit, handleBookClick,userInfo,handleChang
                 Book Now
               </button>
             </DialogTrigger>
-            <DialogContent className="bg-white">
+            <DialogContent className="bg-white max-h-[80vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Book {car.name}</DialogTitle>
                 <DialogDescription>
@@ -91,10 +92,7 @@ function carCards({ car, handleModalSubmit, handleBookClick,userInfo,handleChang
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor="phoneNumber"
-                      className="block text-gray-700"
-                    >
+                    <label htmlFor="phoneNumber" className="block text-gray-700">
                       Phone Number
                     </label>
                     <input
@@ -108,27 +106,35 @@ function carCards({ car, handleModalSubmit, handleBookClick,userInfo,handleChang
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor="countryCode"
-                      className="block text-gray-700"
-                    >
-                      Country Code
+                    <label htmlFor="numberOfPeople" className="block text-gray-700">
+                      Number of People
                     </label>
                     <input
-                      type="text"
-                      id="countryCode"
-                      name="countryCode"
+                      type="number"
+                      id="numberOfPeople"
+                      name="numberOfPeople"
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={userInfo.countryCode}
+                      value={userInfo.numberOfPeople}
                       onChange={handleChange}
                       required
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor="flightNumber"
-                      className="block text-gray-700"
-                    >
+                    <label htmlFor="numberOfSuitcases" className="block text-gray-700">
+                      Number of Suitcases
+                    </label>
+                    <input
+                      type="number"
+                      id="numberOfSuitcases"
+                      name="numberOfSuitcases"
+                      className="w-full p-2 border border-gray-300 rounded"
+                      value={userInfo.numberOfSuitcases}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="flightNumber" className="block text-gray-700">
                       Flight Number
                     </label>
                     <input
@@ -171,4 +177,4 @@ function carCards({ car, handleModalSubmit, handleBookClick,userInfo,handleChang
   );
 }
 
-export default carCards
+export default CarCards;

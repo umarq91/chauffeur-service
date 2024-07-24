@@ -7,6 +7,7 @@ import Footer from './layout/Footer'
 import MeetnGreet from './pages/MeetnGreet'
 import BusesnCoaches from './pages/BusesnCoaches'
 import MultipleRequests from './pages/MultipleRequests'
+import { Toaster } from './components/ui/toaster'
 function App() {
 
   return (
