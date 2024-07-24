@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import emailjs from 'emailjs-com';
+import { useToast } from '@/components/ui/use-toast';
 
 function MultipleRequests() {
+  const { toast } = useToast();
+
   const [formData, setFormData] = useState({
     people: "",
     luggagebags: "",
@@ -8,6 +12,7 @@ function MultipleRequests() {
     chauffer: false,
     busesAndCoaches: false,
     noOfTransfers: "",
+    noOfChauffeurs: "",
     pickupLocation: "",
     flightNumber: "",
     fullName: "",
@@ -15,6 +20,22 @@ function MultipleRequests() {
     email: "",
     message: "",
   });
+
+  const initialFormData = {
+    people: "",
+    luggagebags: "",
+    transfer: false,
+    chauffer: false,
+    busesAndCoaches: false,
+    noOfTransfers: "",
+    noOfChauffeurs: "",
+    pickupLocation: "",
+    flightNumber: "",
+    fullName: "",
+    contactNumber: "",
+    email: "",
+    message: "",
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -32,8 +53,99 @@ function MultipleRequests() {
       alert("Please fill all the required fields.");
       return;
     }
-    console.log(formData);
-    // Handle form submission here (e.g., send email)
+
+    const emailContent = `
+      Multiple Requests Enquiry
+
+      Booking Details:
+      People: ${formData.people}
+      Luggage Bags: ${formData.luggagebags}
+      Transfer: ${formData.transfer}
+      Chauffer: ${formData.chauffer}
+      Buses and Coaches: ${formData.busesAndCoaches}
+      Number of Transfers: ${formData.noOfTransfers}
+      Number of Chauffeurs: ${formData.noOfChauffeurs}
+      Pickup Location: ${formData.pickupLocation}
+      Flight Number: ${formData.flightNumber}
+
+      User Information:
+      Full Name: ${formData.fullName}
+      Contact Number: ${formData.contactNumber}
+      Email: ${formData.email}
+      Message: ${formData.message}
+    `;
+
+    emailjs.send('service_oxx754x', 'template_7uq7eqg', {
+      to_name: "Apollo Transport Service",
+      from_name: formData.fullName,
+      message: emailContent,
+    }, 'ZB0s5MrgpcBV07keG')
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setFormData(initialFormData);
+        toast({
+          title: "Email Sent",
+          description: 'Requested a quote for Multiple Requests service.',
+          className: "bg-white text-gray-800"
+        });
+
+        const clientMessage = `
+          Dear ${formData.fullName},
+
+          Thank you for choosing our services for your transportation needs. 
+
+          We have successfully received your booking request with the following details:
+
+          **Booking Details:**
+          People: ${formData.people}
+          Luggage Bags: ${formData.luggagebags}
+          Transfer: ${formData.transfer}
+          Chauffer: ${formData.chauffer}
+          Buses and Coaches: ${formData.busesAndCoaches}
+          Number of Transfers: ${formData.noOfTransfers}
+          Number of Chauffeurs: ${formData.noOfChauffeurs}
+          Pickup Location: ${formData.pickupLocation}
+          Flight Number: ${formData.flightNumber}
+
+          **User Information:**
+          Full Name: ${formData.fullName}
+          Contact Number: ${formData.contactNumber}
+          Email: ${formData.email}
+          Message: ${formData.message}
+
+          Our team is now processing your request and will get back to you shortly with a confirmation and further details.
+
+          If you have any questions or need to make changes to your booking, please do not hesitate to contact us.
+
+          For cancellation or additional information, please do not hesitate to contact us.
+          Email: info@atsworld.com
+          
+          Best regards,
+          Apollo Transport Service
+        `;
+
+        emailjs.send('service_oxx754x', 'template_fdjemvn', {
+          to_email: formData.email,
+          from_name: "Apollo Transport Service",
+          message: clientMessage,
+        }, 'ZB0s5MrgpcBV07keG').then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+        }).catch((error) => {
+          toast({
+            title: "Email Failed",
+            description: 'Failed to send booking request.',
+            className: "bg-white text-red-800"
+          });
+        });
+
+      }, (error) => {
+        console.log('FAILED...', error);
+        toast({
+          title: "Email Failed",
+          description: 'Failed to send booking request.',
+          className: "bg-white text-red-800"
+        });
+      });
   };
 
   return (
@@ -62,16 +174,16 @@ function MultipleRequests() {
                 <input type="checkbox" className="mr-2" id="busesAndCoaches" name="busesAndCoaches" checked={formData.busesAndCoaches} onChange={handleChange} />
                 <label htmlFor="busesAndCoaches">Buses and Coaches</label>
               </div>
-              {formData.transfer && (
+              {(formData.transfer) && (
                 <div className="mt-4">
                   <label htmlFor="noOfTransfers" className="block text-base font-normal mb-2">Number of Transfers *</label>
                   <input type="number" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="noOfTransfers" name="noOfTransfers" value={formData.noOfTransfers} onChange={handleChange} min="1" max="100" />
                 </div>
               )}
-              {formData.chauffer && (
+              {(formData.chauffer) && (
                 <div className="mt-4">
-                  <label htmlFor="noOfTransfers" className="block text-base font-normal mb-2">Number of Transfers *</label>
-                  <input type="number" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="noOfTransfers" name="noOfTransfers" value={formData.noOfTransfers} onChange={handleChange} min="1" max="100" />
+                  <label htmlFor="noOfChauffeurs" className="block text-base font-normal mb-2">Number of Chauffeurs *</label>
+                  <input type="number" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="noOfChauffeurs" name="noOfChauffeurs" value={formData.noOfChauffeurs} onChange={handleChange} min="1" max="100" />
                 </div>
               )}
             </div>
@@ -89,17 +201,16 @@ function MultipleRequests() {
                 <input type="text" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="pickupLocation" name="pickupLocation" value={formData.pickupLocation} onChange={handleChange} />
               </div>
               <div>
-                <label htmlFor="flightNumber" className="block text-base font-normal mb-2">Flight Number (Optional)</label>
+                <label htmlFor="flightNumber" className="block text-base font-normal mb-2">Flight Number (optional)</label>
                 <input type="text" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="flightNumber" name="flightNumber" value={formData.flightNumber} onChange={handleChange} />
               </div>
             </div>
           </div>
         )}
 
-        {/* Guest Details */}
+        {/* User Information Section */}
         <div className="w-full">
-          <h1 className="text-2xl font-bold mb-4">Guest Details</h1>
-          <h3 className="text-lg mb-6">Provide Guest Information</h3>
+          <h1 className="text-2xl font-bold mb-4">User Information</h1>
           <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
             <div>
               <label htmlFor="fullName" className="block text-base font-normal mb-2">Full Name *</label>
@@ -114,15 +225,12 @@ function MultipleRequests() {
               <input type="email" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="email" name="email" value={formData.email} onChange={handleChange} />
             </div>
             <div>
-              <label htmlFor="message" className="block text-base font-normal mb-2">Message (Optional)</label>
-              <textarea className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="message" name="message" value={formData.message} onChange={handleChange} rows="4"></textarea>
+              <label htmlFor="message" className="block text-base font-normal mb-2">Message</label>
+              <textarea className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="message" name="message" value={formData.message} onChange={handleChange}></textarea>
             </div>
+            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">Submit</button>
           </div>
         </div>
-
-        <button type="submit" className="w-full bg-indigo-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-indigo-600 transition duration-300">
-          Request a quote
-        </button>
       </form>
     </div>
   );

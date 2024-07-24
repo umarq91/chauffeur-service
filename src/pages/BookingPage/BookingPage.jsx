@@ -71,7 +71,7 @@ function BookingPage() {
     const emailContent = `
     Offer Enquiry
 
-    This is a new offer enquiry for a chauffeured service from Luxury transport & chauffeur service.
+    This is a new offer enquiry for a Apollo transport service.
 
     Booking Details:
     Date: ${date}
@@ -143,8 +143,12 @@ function BookingPage() {
 
         If you have any questions or need to make changes to your booking, please do not hesitate to contact us.
 
+        For cancellation or additional information, please do not hesitate to contact us.
+        Email : info@atsworld.com
+        
+
         Best regards,
-        [Your Company Name]
+        Apollo transport service
         `;
 
         emailjs.send('service_oxx754x', 'template_fdjemvn', {

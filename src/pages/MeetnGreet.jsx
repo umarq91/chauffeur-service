@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import emailjs from 'emailjs-com';
+import { useToast } from '@/components/ui/use-toast';
 
 function MeetnGreet() {
+  const { toast } = useToast();
+
   const [formData, setFormData] = useState({
     people: "",
     luggagebags: "",
@@ -14,6 +18,19 @@ function MeetnGreet() {
     message: "",
   });
 
+  const initialFormData = {
+    people: "",
+    luggagebags: "",
+    pickupLocation: "",
+    flightNumber: "",
+    pickupDate: "",
+    pickupTime: "",
+    fullName: "",
+    contactNumber: "",
+    email: "",
+    message: "",
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -26,8 +43,95 @@ function MeetnGreet() {
       alert("Please fill all the required fields.");
       return;
     }
-    console.log(formData);
-    // Handle form submission here (e.g., send email)
+    
+    const emailContent = `
+      Meet & Greet Enquiry
+
+      This is a new meet & greet enquiry for Apollo transport service.
+
+      Booking Details:
+      People: ${formData.people}
+      Luggage Bags: ${formData.luggagebags}
+      Pickup Location: ${formData.pickupLocation}
+      Flight Number: ${formData.flightNumber}
+      Pickup Date: ${formData.pickupDate}
+      Pickup Time: ${formData.pickupTime}
+
+      User Information:
+      Full Name: ${formData.fullName}
+      Contact Number: ${formData.contactNumber}
+      Email: ${formData.email}
+      Message: ${formData.message}
+    `;
+
+    emailjs.send('service_oxx754x', 'template_7uq7eqg', {
+      to_name: "Apollo Transport Service",
+      from_name: formData.fullName,
+      message: emailContent,
+    }, 'ZB0s5MrgpcBV07keG')
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setFormData(initialFormData);
+        toast({
+          title: "Email Sent",
+          description: `Requested a quote for Meet & Greet service.`,
+          className: "bg-white text-gray-800"
+        });
+
+        const clientMessage = `
+          Dear ${formData.fullName},
+
+          Thank you for choosing our services for your transportation needs. 
+
+          We have successfully received your booking request with the following details:
+
+          **Booking Details:**
+          People: ${formData.people}
+          Luggage Bags: ${formData.luggagebags}
+          Pickup Location: ${formData.pickupLocation}
+          Flight Number: ${formData.flightNumber}
+          Pickup Date: ${formData.pickupDate}
+          Pickup Time: ${formData.pickupTime}
+
+          **User Information:**
+          Full Name: ${formData.fullName}
+          Contact Number: ${formData.contactNumber}
+          Email: ${formData.email}
+          Message: ${formData.message}
+
+          Our team is now processing your request and will get back to you shortly with a confirmation and further details.
+
+          If you have any questions or need to make changes to your booking, please do not hesitate to contact us.
+
+          For cancellation or additional information, please do not hesitate to contact us.
+          Email: info@atsworld.com
+          
+          Best regards,
+          Apollo Transport Service
+        `;
+
+        emailjs.send('service_oxx754x', 'template_fdjemvn', {
+          to_email: formData.email,
+          from_name: "Apollo Transport Service",
+          message: clientMessage,
+        }, 'ZB0s5MrgpcBV07keG').then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+        }).catch((error) => {
+          toast({
+            title: "Email Failed",
+            description: 'Failed to send booking request.',
+            className: "bg-white text-red-800"
+          })
+        });
+
+      }, (error) => {
+        console.log('FAILED...', error);
+        toast({
+          title: "Email Failed",
+          description: 'Failed to send booking request.',
+          className: "bg-white text-red-800"
+        });
+      });
   };
 
   return (
@@ -93,10 +197,10 @@ function MeetnGreet() {
           </div>
         </div>
 
-        {/* Guest Details */}
+        {/* User Information */}
         <div className="w-full">
-          <h1 className="text-2xl font-bold mb-4">Guest Details</h1>
-          <h3 className="text-lg mb-6">Provide Guest Information</h3>
+          <h1 className="text-2xl font-bold mb-4">User Information</h1>
+          <h3 className="text-lg mb-6">Provide Your Contact Information</h3>
           <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
             <div>
               <label htmlFor="fullName" className="block text-base font-normal mb-2">Full Name *</label>
@@ -112,14 +216,14 @@ function MeetnGreet() {
             </div>
             <div>
               <label htmlFor="message" className="block text-base font-normal mb-2">Message (Optional)</label>
-              <textarea className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="message" name="message" value={formData.message} onChange={handleChange} rows="4"></textarea>
+              <textarea className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="message" name="message" value={formData.message} onChange={handleChange}></textarea>
             </div>
           </div>
         </div>
 
-        <button type="submit" className="w-full bg-indigo-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-indigo-600 transition duration-300">
-          Request a quote
-        </button>
+        <div className="w-full">
+          <button type="submit" className="py-2 px-4 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50">Submit</button>
+        </div>
       </form>
     </div>
   );

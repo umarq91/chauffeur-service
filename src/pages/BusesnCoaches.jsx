@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import emailjs from 'emailjs-com';
+import { useToast } from '@/components/ui/use-toast';
 
 function BusesnCoaches() {
+  const { toast } = useToast();
+
   const [formData, setFormData] = useState({
     people: "",
     luggagebags: "",
@@ -14,6 +18,19 @@ function BusesnCoaches() {
     message: "",
   });
 
+  const initialFormData = {
+    people: "",
+    luggagebags: "",
+    pickupLocation: "",
+    flightNumber: "",
+    pickupDate: "",
+    pickupTime: "",
+    fullName: "",
+    contactNumber: "",
+    email: "",
+    message: "",
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -26,8 +43,95 @@ function BusesnCoaches() {
       alert("Please fill all the required fields.");
       return;
     }
-    console.log(formData);
-    // Handle form submission here (e.g., send email)
+
+    const emailContent = `
+      Buses & Coaches Enquiry
+
+      This is a new buses & coaches enquiry for Apollo transport service.
+
+      Booking Details:
+      People: ${formData.people}
+      Luggage Bags: ${formData.luggagebags}
+      Pickup Location: ${formData.pickupLocation}
+      Flight Number: ${formData.flightNumber}
+      Pickup Date: ${formData.pickupDate}
+      Pickup Time: ${formData.pickupTime}
+
+      User Information:
+      Full Name: ${formData.fullName}
+      Contact Number: ${formData.contactNumber}
+      Email: ${formData.email}
+      Message: ${formData.message}
+    `;
+
+    emailjs.send('service_oxx754x', 'template_7uq7eqg', {
+      to_name: "Apollo Transport Service",
+      from_name: formData.fullName,
+      message: emailContent,
+    }, 'ZB0s5MrgpcBV07keG')
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setFormData(initialFormData);
+        toast({
+          title: "Email Sent",
+          description: `Requested a quote for Buses & Coaches service.`,
+          className: "bg-white text-gray-800"
+        });
+
+        const clientMessage = `
+          Dear ${formData.fullName},
+
+          Thank you for choosing our services for your transportation needs. 
+
+          We have successfully received your booking request with the following details:
+
+          **Booking Details:**
+          People: ${formData.people}
+          Luggage Bags: ${formData.luggagebags}
+          Pickup Location: ${formData.pickupLocation}
+          Flight Number: ${formData.flightNumber}
+          Pickup Date: ${formData.pickupDate}
+          Pickup Time: ${formData.pickupTime}
+
+          **User Information:**
+          Full Name: ${formData.fullName}
+          Contact Number: ${formData.contactNumber}
+          Email: ${formData.email}
+          Message: ${formData.message}
+
+          Our team is now processing your request and will get back to you shortly with a confirmation and further details.
+
+          If you have any questions or need to make changes to your booking, please do not hesitate to contact us.
+
+          For cancellation or additional information, please do not hesitate to contact us.
+          Email: info@atsworld.com
+          
+          Best regards,
+          Apollo Transport Service
+        `;
+
+        emailjs.send('service_oxx754x', 'template_fdjemvn', {
+          to_email: formData.email,
+          from_name: "Apollo Transport Service",
+          message: clientMessage,
+        }, 'ZB0s5MrgpcBV07keG').then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+        }).catch((error) => {
+          toast({
+            title: "Email Failed",
+            description: 'Failed to send booking request.',
+            className: "bg-white text-red-800"
+          })
+        });
+
+      }, (error) => {
+        console.log('FAILED...', error);
+        toast({
+          title: "Email Failed",
+          description: 'Failed to send booking request.',
+          className: "bg-white text-red-800"
+        });
+      });
   };
 
   return (
@@ -56,7 +160,7 @@ function BusesnCoaches() {
       <form onSubmit={handleSubmit} className="bg-gray-200 text-black min-h-screen max-w-6xl mx-auto p-10 rounded-lg space-y-12">
         {/* Meet and Greet */}
         <div className="w-full">
-          <h1 className="text-2xl font-bold mb-4">Buses & Caoches</h1>
+          <h1 className="text-2xl font-bold mb-4">Buses & Coaches</h1>
           <h3 className="text-lg mb-6">Choose the No of People and Luggage</h3>
           <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
             <div>
