@@ -8,6 +8,7 @@ import MeetnGreet from './pages/MeetnGreet'
 import BusesnCoaches from './pages/BusesnCoaches'
 import MultipleRequests from './pages/MultipleRequests'
 import { Toaster } from './components/ui/toaster'
+import LandingPage from './pages/LandingPage/LandingPage'
 function App() {
 
   return (
@@ -16,7 +17,7 @@ function App() {
   
     <Navbar/>
   <Routes>
-    <Route path='/' element={<HeroPage/>} exact=''/>
+    <Route path='/' element={<LandingPage/>} exact=''/>
     <Route path='/booking' element={<BookingPage />}/>
     <Route path='/booking/meetngreet' element={<MeetnGreet/>}/>
     <Route path='/booking/busesncoaches' element={<BusesnCoaches/>}/>
