@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Dialog,
   DialogContent,
@@ -14,17 +14,17 @@ import { FaUsers, FaSuitcase } from 'react-icons/fa';
 function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleChange }) {
   return (
     <motion.div
-      className="flex flex-col md:flex-row mb-8 bg-gray-50 p-6 rounded-lg shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+      className="flex flex-col lg:flex-row mb-8 bg-gray-50 p-6 rounded-lg shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
       key={car.name}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
       <img
-        className="w-full md:w-[35%] rounded-lg object-cover mb-4 md:mb-0"
+        className="w-full lg:w-[35%] rounded-lg object-cover mb-4 md:mb-0"
         src={car.img}
         alt={car.name}
       />
-      <div className="w-full md:w-2/3 p-4 flex flex-col justify-between">
+      <div className="w-full lg:w-2/3 p-4 flex flex-col justify-between">
         <div>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold text-gray-800">{car.name}</h2>
@@ -33,8 +33,8 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
             </span>
           </div>
           <p className="mt-2 text-xs text-gray-700">{car.description}</p>
-          <div className="flex mt-4 text-gray-600">
-            <div className="flex items-center mr-6">
+          <div className="flex flex-col md:flex-row mt-4 text-gray-600">
+            <div className="flex items-center mr-6 mb-2 md:mb-0">
               <FaUsers className="mr-2 text-blue-500" /> {car.numberofPeople}{" "}
               Passengers
             </div>
@@ -44,12 +44,12 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex flex-col gap-4 lg:flex-row justify-between items-center mt-4 space-y-4 md:space-y-0">
           <Dialog>
             <DialogTrigger asChild>
               <button
                 onClick={() => handleBookClick(car)}
-                className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+                className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 w-full md:w-auto"
               >
                 Book Now
               </button>
