@@ -135,7 +135,7 @@ function MeetnGreet() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200 text-gray-800">
+    <div className="min-h-screen bg-gray-200 text-gray-800 font-poppins">
       <section
         id="mainbanner"
         style={{ backgroundImage: "url('https://djmag.com/sites/default/files/styles/djm_23_961x540_jpg/public/article/image/KSHMR%20Live%20Shot.jpg?itok=ffdOdRgu')" }}
@@ -156,12 +156,14 @@ function MeetnGreet() {
         </div>
       </section>
 
-      <form onSubmit={handleSubmit} className="bg-gray-200 text-black min-h-screen max-w-6xl mx-auto p-10 rounded-lg  space-y-12">
+      <form onSubmit={handleSubmit} className="bg-gray-200 text-black max-w-6xl mx-auto p-10 rounded-lg space-y-12">
         {/* Meet and Greet */}
-        <div className="w-full">
-          <h1 className="text-2xl font-bold mb-4">Meet & Greet</h1>
-          <h3 className="text-lg mb-6">Choose the Number of People and Luggage</h3>
-          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="md:col-span-1">
+            <h1 className="text-2xl font-bold mb-4">Meet & Greet</h1>
+            <h3 className="text-lg mb-6">Choose the Number of People and Luggage</h3>
+          </div>
+          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4 md:col-span-2">
             <div>
               <label htmlFor="people" className="block text-base font-normal mb-2">Number of People *</label>
               <input type="number" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="people" name="people" value={formData.people} onChange={handleChange} min="1" max="100" />
@@ -174,10 +176,12 @@ function MeetnGreet() {
         </div>
 
         {/* Pick Up */}
-        <div className="w-full">
-          <h1 className="text-2xl font-bold mb-4">Pick Up</h1>
-          <h3 className="text-lg mb-6">Provide Pickup Details</h3>
-          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="md:col-span-1">
+            <h1 className="text-2xl font-bold mb-4">Pick Up</h1>
+            <h3 className="text-lg mb-6">Provide Pickup Details</h3>
+          </div>
+          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4 md:col-span-2">
             <div>
               <label htmlFor="pickupLocation" className="block text-base font-normal mb-2">Pickup Location *</label>
               <input type="text" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="pickupLocation" name="pickupLocation" value={formData.pickupLocation} onChange={handleChange} />
@@ -198,10 +202,12 @@ function MeetnGreet() {
         </div>
 
         {/* User Information */}
-        <div className="w-full">
-          <h1 className="text-2xl font-bold mb-4">User Information</h1>
-          <h3 className="text-lg mb-6">Provide Your Contact Information</h3>
-          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="md:col-span-1">
+            <h1 className="text-2xl font-bold mb-4">User Information</h1>
+            <h3 className="text-lg mb-6">Provide Your Contact Information</h3>
+          </div>
+          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4 md:col-span-2">
             <div>
               <label htmlFor="fullName" className="block text-base font-normal mb-2">Full Name *</label>
               <input type="text" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} />
@@ -221,8 +227,8 @@ function MeetnGreet() {
           </div>
         </div>
 
-        <div className="w-full">
-          <button type="submit" className="py-2 px-4 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50">Submit</button>
+        <div className="w-full text-center">
+          <button type="submit" className="py-2 px-4 md:w-1/3 bg-indigo-500 text-white rounded-md shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50">Submit</button>
         </div>
       </form>
     </div>

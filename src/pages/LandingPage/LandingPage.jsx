@@ -7,8 +7,9 @@ const LandingPage = () => {
   return (
     <div className='min-h-screen'>
         <HeroPage/>
-        <div className=''>
+        <div className='flex flex-col gap-8'>
     <HowThisWorks/>
+    <hr className='my-3'/>
         <WhatWeOffer/>
         </div>
     </div>

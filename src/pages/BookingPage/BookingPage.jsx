@@ -185,7 +185,7 @@ function BookingPage() {
   return (
     <div className="min-h-screen font-poppins flex flex-col-reverse md:flex-row bg-gray-100 p-6 md:p-8">
       {/* Booking Summary */}
-      <div className="w-full md:w-1/4 bg-white p-6 rounded-lg shadow-lg mb-6 md:mb-0">
+      <div className="w-full md:w-1/4 bg-white p-6 rounded-lg mb-6 md:mb-0">
         <h1 className="text-2xl font-bold mb-6 text-gray-800">Booking Summary</h1>
         <div className="space-y-6">
           <div className="flex flex-col gap-2">
@@ -227,9 +227,9 @@ function BookingPage() {
 
       {/* Right */}
       {/* Filter and Car Listings */}
-      <div className="w-full md:w-3/4 bg-white p-6 rounded-lg shadow-lg">
+      <div className="w-full md:w-3/4 bg-white p-6 rounded-lg ">
         {/* Filter */}
-        <div className="mb-6 bg-gray-100 px-6 py-8 rounded-lg shadow-md">
+        <div className="mb-6 bg-gray-100 px-6 py-8 rounded-lg ">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Filter Results</h2>
           <div className="flex flex-col md:flex-row md:space-x-6">
             <div className='w-full md:w-1/2 mb-4 md:mb-0'>

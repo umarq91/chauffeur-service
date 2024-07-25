@@ -14,7 +14,7 @@ import { FaUsers, FaSuitcase } from 'react-icons/fa';
 function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleChange }) {
   return (
     <motion.div
-      className="flex flex-col lg:flex-row mb-8 bg-gray-50 p-6 rounded-lg shadow-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+      className="flex flex-col lg:flex-row mb-8 bg-gray-50 p-6 rounded-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
       key={car.name}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
