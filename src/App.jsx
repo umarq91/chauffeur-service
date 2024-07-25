@@ -9,6 +9,7 @@ import BusesnCoaches from './pages/BusesnCoaches'
 import MultipleRequests from './pages/MultipleRequests'
 import { Toaster } from './components/ui/toaster'
 import LandingPage from './pages/LandingPage/LandingPage'
+import ContactUsPage from './pages/ContactUsPage'
 function App() {
 
   return (
@@ -22,6 +23,8 @@ function App() {
     <Route path='/booking/meetngreet' element={<MeetnGreet/>}/>
     <Route path='/booking/busesncoaches' element={<BusesnCoaches/>}/>
     <Route path='/booking/planmytrip' element={<MultipleRequests/>}/>
+    <Route path='/contact' element={<ContactUsPage/>}/>
+
 
   </Routes>
   <Footer/>
