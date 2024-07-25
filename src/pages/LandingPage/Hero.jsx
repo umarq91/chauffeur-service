@@ -38,9 +38,9 @@ function HeroPage() {
       className="relative min-h-screen p-10 w-full bg-cover bg-blue-500 flex items-center"
       style={{ backgroundImage: 'url(https://img.freepik.com/premium-photo/group-business-people-with-lit-background-mixed-media_641298-12027.jpg)' }}
     >
-      <div className="absolute inset-0 bg-black opacity-50"></div> {/* Overlay */}
+      <div className="absolute inset-0 bg-black opacity-50 z-10"></div> {/* Overlay */}
 
-      <div className="container mx-auto px-4 flex flex-col relative">
+      <div className="container mx-auto px-4 flex flex-col relative z-20">
         {/* left */}
         <div className="text-left text-white mb-5 md:mb-4">
           <h1 className="text-4xl font-bold mb-4 md:w-1/2">PREMIUM SERVICES TAILORED FOR YOU</h1>

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdClose } from "react-icons/md";
-
 const Navbar = () => {
   const [menuOpened, setMenuOpened] = useState(false);
 
@@ -28,7 +27,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="flex justify-around  items-center bg-white bg-opacity-80 font-poppins shadow-lg w-full py-5 px-8 ring-1 ring-white">
+    <nav className="flex justify-around items-center bg-white bg-opacity-80 font-poppins shadow-lg w-full py-5 px-8 ring-1 ring-white z-50">
       <Link
         to="/"
         className="flex justify-center items-center text-[18px] md:text-[25px] font-bold"
@@ -66,7 +65,7 @@ const Navbar = () => {
       <ul
         className={
           menuOpened
-            ? "lg:mt-3 flex flex-col justify-center p-10 fixed top-10 right-0 bg-slate-100 rounded-lg transition-all duration-500 shadow-md"
+            ? "lg:mt-3 flex flex-col justify-center p-10 fixed top-10 right-0 bg-slate-100 rounded-lg transition-all duration-500 shadow-md z-50"
             : "flex flex-col justify-center p-12 fixed top-14 right-[-100%] bg-slate-100 rounded-lg transition-all duration-500 shadow-md"
         }
       >
