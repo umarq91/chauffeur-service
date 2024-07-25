@@ -218,7 +218,7 @@ function BookingPage() {
           </div>
           <button
             onClick={() => navigate('/')}
-            className='w-2/3 flex justify-center items-center rounded-full py-2 hover:bg-opacity-80 bg-gray-300'>
+            className='w-2/3 flex justify-center items-center rounded-full py-2 hover:bg-opacity-80 text-sm lg:text-lg bg-gray-300'>
             <IoIosArrowRoundBack size={20} />
             Edit Booking
           </button>
@@ -227,7 +227,7 @@ function BookingPage() {
 
       {/* Right */}
       {/* Filter and Car Listings */}
-      <div className="w-full md:w-3/4 bg-white p-6 rounded-lg ">
+      <div className="w-full md:w-3/4 bg-white md:p-6 rounded-lg ">
         {/* Filter */}
         <div className="mb-6 bg-gray-100 px-6 py-8 rounded-lg ">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Filter Results</h2>

@@ -16,10 +16,10 @@ const Navbar = () => {
       label: "Contact Us",
       link: "/contact"
     },
-    {
-      label: "Our Services",
-      link: "/services"
-    },
+    // {
+    //   label: "Our Services",
+    //   link: "/services"
+    // },
     {
       label: "About Us",
       link: "/about"

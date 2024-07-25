@@ -152,10 +152,12 @@ function MultipleRequests() {
     <div className="min-h-screen bg-gray-200 text-gray-800">
       <form onSubmit={handleSubmit} className="bg-gray-200 text-black min-h-screen max-w-6xl mx-auto p-10 rounded-lg space-y-12">
         {/* Multiple Request Section */}
-        <div className="w-full">
-          <h1 className="text-2xl font-bold mb-4">Multiple Requests</h1>
-          <h3 className="text-lg mb-6">Choose the Number of People and Luggage</h3>
-          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="md:col-span-1">
+            <h1 className="text-2xl font-bold mb-4">Multiple Requests</h1>
+            <h3 className="text-lg mb-6">Choose the Number of People and Luggage</h3>
+          </div>
+          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4 md:col-span-2">
             <div>
               <label htmlFor="people" className="block text-base font-normal mb-2">Number of People *</label>
               <input type="number" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="people" name="people" value={formData.people} onChange={handleChange} min="1" max="100" />
@@ -192,10 +194,12 @@ function MultipleRequests() {
 
         {/* Pick Up Location (conditionally displayed) */}
         {formData.busesAndCoaches && (
-          <div className="w-full">
-            <h1 className="text-2xl font-bold mb-4">Pick Up</h1>
-            <h3 className="text-lg mb-6">Provide Pickup Details</h3>
-            <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="md:col-span-1">
+              <h1 className="text-2xl font-bold mb-4">Pick Up</h1>
+              <h3 className="text-lg mb-6">Provide Pickup Details</h3>
+            </div>
+            <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4 md:col-span-2">
               <div>
                 <label htmlFor="pickupLocation" className="block text-base font-normal mb-2">Pickup Location *</label>
                 <input type="text" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="pickupLocation" name="pickupLocation" value={formData.pickupLocation} onChange={handleChange} />
@@ -209,9 +213,11 @@ function MultipleRequests() {
         )}
 
         {/* User Information Section */}
-        <div className="w-full">
-          <h1 className="text-2xl font-bold mb-4">User Information</h1>
-          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4">
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="md:col-span-1">
+            <h1 className="text-2xl font-bold mb-4">User Information</h1>
+          </div>
+          <div className="bg-white p-5 rounded-md shadow-md text-gray-800 space-y-4 md:col-span-2">
             <div>
               <label htmlFor="fullName" className="block text-base font-normal mb-2">Full Name *</label>
               <input type="text" className="py-2 px-3 w-full border-gray-300 border-2 rounded-md" id="fullName" name="fullName" value={formData.fullName} onChange={handleChange} />

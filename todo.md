@@ -5,3 +5,6 @@
 
 Things to ask and do :
 get the content of PRIVACY POLICTY
+get and change the LOGO 
+Contact us Page can be built later ! 
+change email | address in contact us page! 
