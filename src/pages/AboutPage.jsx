@@ -2,7 +2,7 @@ import React from 'react';
 
 function AboutPage() {
   return (
-    <div className="bg-gray-50 text-gray-900 font-poppins">
+    <div className="bg-gray-50 text-gray-900 font-poppins max-w-7xl mx-auto">
       <nav className="py-5 bg-white shadow-md">
         <div className="container mx-auto flex justify-between items-center">
           <a href="#" className="text-2xl font-bold text-indigo-600">Apollo Transportation Service</a>
@@ -66,23 +66,15 @@ function AboutPage() {
 
       <section id="chauffeurs" className="py-20 bg-white">
   <div className="container mx-auto px-6">
-    <h2 className="text-3xl font-bold text-center mb-12">Meet Our Elite Chauffeurs</h2>
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <h3 className="text-xl font-semibold mb-4">John Doe</h3>
-        <p className="text-gray-700">Experienced chauffeur with over 10 years of service, committed to safety and customer satisfaction.</p>
-      </div>
-      <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <h3 className="text-xl font-semibold mb-4">Jane Smith</h3>
-        <p className="text-gray-700">Professional and courteous, Jane ensures a comfortable and enjoyable ride every time.</p>
-      </div>
-      <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <h3 className="text-xl font-semibold mb-4">Michael Johnson</h3>
-        <p className="text-gray-700">Known for his impeccable driving skills and friendly demeanor, Michael is the ideal chauffeur for any occasion.</p>
-      </div>
+    <h2 className="text-3xl font-bold text-center mb-12 ">Meet Our Elite Chauffeurs</h2>
+    <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+      <p className="text-gray-700 md:px-10 text-center">
+        Our chauffeurs are the heart of Apollo Transportation Service. Each chauffeur is handpicked for their exceptional driving skills, professionalism, and unwavering commitment to customer satisfaction. Trained to prioritize your safety and comfort, our chauffeurs ensure a smooth and enjoyable ride, every time.
+      </p>
     </div>
   </div>
 </section>
+
 
 
       <section id="whychoose" className="py-20 bg-indigo-600 text-white ">
@@ -117,7 +109,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <footer className="py-10 bg-indigo-800 text-white text-center">
+      {/* <footer className="py-10 bg-indigo-800 text-white text-center">
         <div className="container mx-auto">
           <p className="mb-4">&copy; 2024 Apollo Transportation Service. All rights reserved.</p>
           <ul className="flex justify-center space-x-4">
@@ -125,7 +117,7 @@ function AboutPage() {
             <li><a href="/terms" className="hover:text-indigo-400">Terms of Service</a></li>
           </ul>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 }
