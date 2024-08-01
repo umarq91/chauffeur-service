@@ -6,14 +6,16 @@ function AboutPage() {
       <nav className="py-5 bg-white shadow-md">
         <div className="container mx-auto flex justify-between items-center">
           <a href="#" className="text-2xl font-bold text-indigo-600">Apollo Transportation Service</a>
-         
         </div>
       </nav>
 
       <section id="mission" className="py-20 bg-indigo-600 text-white text-center">
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold mb-6">Our Mission: Excellence in Motion</h2>
-          <p className="text-lg max-w-3xl mx-auto">To provide the highest standard of personalized chauffeur services, meticulously designed to meet the unique needs of each client. We strive to make every trip a seamless and memorable experience, blending elegance, efficiency, and professionalism.</p>
+          <div className="flex flex-col md:flex-row items-center md:space-x-6">
+            {/* <img src="https://example.com/mission-image.jpg" alt="Mission" className="w-full md:w-1/2 rounded-lg shadow-lg mb-6 md:mb-0"/> */}
+            <p className="text-lg max-w-3xl mx-auto">To provide the highest standard of personalized chauffeur services, meticulously designed to meet the unique needs of each client. We strive to make every trip a seamless and memorable experience, blending elegance, efficiency, and professionalism.</p>
+          </div>
         </div>
       </section>
 
@@ -21,19 +23,23 @@ function AboutPage() {
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">Our Signature Services</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <img src="https://vitesseworldwide.com/wp-content/uploads/2022/07/Top-Nine-Reasons-to-Consider-Executive-Transportation-Services-1024x682.jpg" alt="Executive Transportation" className="w-full h-40 object-cover rounded-lg mb-4"/>
               <h3 className="text-xl font-semibold mb-4">Executive Transportation</h3>
               <p className="text-gray-700">Ideal for corporate clients seeking reliable, discreet, and professional transportation for meetings, conferences, and business engagements.</p>
             </div>
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <img src="https://media.licdn.com/dms/image/D4E12AQFzGLLDLN1Zkw/article-cover_image-shrink_600_2000/0/1684430680460?e=2147483647&v=beta&t=wL2Re6ogaZK6Y_Hu8HJoCAi1STmSu3QQcZW5QOHyfjk" alt="Airport Transfers" className="w-full h-40 object-cover rounded-lg mb-4"/>
               <h3 className="text-xl font-semibold mb-4">Airport Transfers</h3>
               <p className="text-gray-700">Ensuring timely, comfortable transfers to and from major airports, making your travel experience hassle-free from start to finish.</p>
             </div>
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <img src="https://key-transportation.com/wp-content/uploads/2019/10/wedding-transportation.png" alt="Special Events" className="w-full h-40 object-cover rounded-lg mb-4"/>
               <h3 className="text-xl font-semibold mb-4">Special Events</h3>
               <p className="text-gray-700">Offering luxury transportation for weddings, parties, and other special occasions, adding a touch of sophistication to your memorable events.</p>
             </div>
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-gray-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <img src="https://www.pakistantours.pk/wp-content/uploads/2022/10/Karakoram-Highway-tours.jpg" alt="Tours and Sightseeing" className="w-full h-40 object-cover rounded-lg mb-4"/>
               <h3 className="text-xl font-semibold mb-4">Tours and Sightseeing</h3>
               <p className="text-gray-700">Providing customized tours with knowledgeable chauffeurs, allowing you to explore top attractions in ultimate style and comfort.</p>
             </div>
@@ -45,18 +51,18 @@ function AboutPage() {
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">Our Exquisite Fleet</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <img src="https://www.detroitnews.com/gcdn/presto/2019/05/13/PDTN/2309ce7d-a291-401e-a085-29efa904649d-B99776835Z.1_20190512204931_000_GBS2FPMA8.1-0.jpg?crop=4255,2318,x0,y220" alt="Sedan" className="w-full h-48 object-cover rounded-lg mb-6"/>
+            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <img src="https://www.detroitnews.com/gcdn/presto/2019/05/13/PDTN/2309ce7d-a291-401e-a085-29efa904649d-B99776835Z.1_20190512204931_000_GBS2FPMA8.1-0.jpg?crop=4255,2318,x0,y220" alt="Sedan" className="w-full h-48 object-cover rounded-lg mb-4"/>
               <h3 className="text-xl font-semibold mb-4">Sedans</h3>
               <p className="text-gray-700">Sleek and sophisticated, our sedans are perfect for corporate travel and everyday luxury.</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <img src="https://www.jeep.co.uk/content/dam/jeep/crossmarket/my23-quality-check/suv/725x408-Grand-Cherokee.jpg" alt="SUV" className="w-full h-48 object-cover rounded-lg mb-6"/>
+            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <img src="https://www.jeep.co.uk/content/dam/jeep/crossmarket/my23-quality-check/suv/725x408-Grand-Cherokee.jpg" alt="SUV" className="w-full h-48 object-cover rounded-lg mb-4"/>
               <h3 className="text-xl font-semibold mb-4">SUVs</h3>
               <p className="text-gray-700">Spacious and comfortable, our SUVs provide ample room for you and your companions, ensuring a smooth ride.</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <img src="https://www.deluxelimohouston.com/wp-content/uploads/2018/12/the-limos_1-e1564076482159.jpeg" alt="Limousine" className="w-full h-48 object-cover rounded-lg mb-6"/>
+            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center text-center">
+              <img src="https://www.deluxelimohouston.com/wp-content/uploads/2018/12/the-limos_1-e1564076482159.jpeg" alt="Limousine" className="w-full h-48 object-cover rounded-lg mb-4"/>
               <h3 className="text-xl font-semibold mb-4">Limousines</h3>
               <p className="text-gray-700">Our limousines offer unparalleled luxury, perfect for special occasions and VIP transport.</p>
             </div>
@@ -65,22 +71,19 @@ function AboutPage() {
       </section>
 
       <section id="chauffeurs" className="py-20 bg-white">
-  <div className="container mx-auto px-6">
-    <h2 className="text-3xl font-bold text-center mb-12 ">Meet Our Elite Chauffeurs</h2>
-    <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-      <p className="text-gray-700 md:px-10 text-center">
-        Our chauffeurs are the heart of Apollo Transportation Service. Each chauffeur is handpicked for their exceptional driving skills, professionalism, and unwavering commitment to customer satisfaction. Trained to prioritize your safety and comfort, our chauffeurs ensure a smooth and enjoyable ride, every time.
-      </p>
-    </div>
-  </div>
-</section>
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12">Meet Our Elite Chauffeurs</h2>
+          <div className="flex flex-col md:flex-row items-center md:space-x-6">
+            <img src="https://limo.global/wp-content/uploads/2023/06/how-to-become-chaffeur-driver-1024x683.jpg.webp" alt="Chauffeurs" className="w-full md:w-1/2 rounded-lg shadow-lg mb-6 md:mb-0"/>
+            <p className="text-gray-700 md:px-10 text-center">Our chauffeurs are the heart of Apollo Transportation Service. Each chauffeur is handpicked for their exceptional driving skills, professionalism, and unwavering commitment to customer satisfaction. Trained to prioritize your safety and comfort, our chauffeurs ensure a smooth and enjoyable ride, every time.</p>
+          </div>
+        </div>
+      </section>
 
-
-
-      <section id="whychoose" className="py-20 bg-indigo-600 text-white ">
+      <section id="whychoose" className="py-20 bg-indigo-600 text-white">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">Why Choose Apollo Transportation Service?</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-gray-800" >
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-gray-800">
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               <h3 className="text-xl font-semibold mb-4">Unwavering Reliability</h3>
               <p className="text-gray-700">Punctuality is our hallmark. We understand the importance of time and guarantee timely arrivals and departures.</p>
