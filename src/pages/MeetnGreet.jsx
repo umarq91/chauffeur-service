@@ -136,26 +136,40 @@ function MeetnGreet() {
 
   return (
     <div className="min-h-screen bg-gray-200 text-gray-800 font-poppins">
-      <section
-        id="mainbanner"
-        style={{ backgroundImage: "url('https://djmag.com/sites/default/files/styles/djm_23_961x540_jpg/public/article/image/KSHMR%20Live%20Shot.jpg?itok=ffdOdRgu')" }}
-        className="bg-center bg-no-repeat bg-cover banner-img-meetngreet"
-      >
-        <div className="flex flex-col mx-auto w-full lg:w-theme-dw py-24 px-11 md:px-0">
-          <h2 className="font-bold text-4xl md:text-6xl uppercase text-white mb-4">
-            Unlock Memorable Moments with Our Exclusive Meet and Greet Service!
-          </h2>
-          <div className="flex flex-col text-white mb-12">
-            <div className="text-xl md:text-2xl">
-              Personalized Experiences, Lasting Connections
-            </div>
-            <div className="text-xl md:text-2xl">
-              Elevate Your Events with Our Premium Meet and Greet Services
+   <section
+  id="mainbanner"
+  className="relative bg-center bg-no-repeat bg-cover banner-img-meetngreet"
+  style={{ backgroundImage: "url('https://www.allstarvip.com/wp-content/uploads/2013/05/driver-hero-1-1440-9001-e1390088580773.jpg')" }}
+>
+  <div className="absolute inset-0 bg-black opacity-50"></div>
+  <div className="relative flex flex-col mx-auto w-full lg:w-theme-dw py-24 px-11 md:px-5">
+    <h2 className="font-bold text-4xl md:text-6xl uppercase text-white mb-4">
+    Seamless Arrival Experience
+
+    </h2>
+    <div className="flex flex-col text-white mb-12">
+      <div className="text-xl md:text-xl">
+      Our Meet and Greet service ensures a smooth and welcoming arrival. Whether at the airport, 
+      </div>
+      <div className="text-xl md:text-xl">
+      train station, or any destination, our professional chauffeurs provide personalized and efficient service
+      </div>
+    </div>
+  </div>
+</section>
+
+<div className="grid  gap-6 place-items-center w-full ">
+            <div className="bg-gray-100 p-6 rounded-md shadow-md place-items-center">
+              <h3 className="text-xl font-semibold mb-4">Service Highlights</h3>
+              <ul className="list-disc list-inside space-y-2">
+                <li>Warm Welcome: Chauffeur waiting with a personalized sign.</li>
+                <li>Luggage Assistance: Hassle-free handling of your bags.</li>
+                <li>Convenience: Guided from arrival gate to vehicle.</li>
+                <li>Real-Time Updates: Monitoring of flight or train schedules.</li>
+                <li>Professionalism: Courteous and attentive service.</li>
+              </ul>
             </div>
           </div>
-        </div>
-      </section>
-
       <form onSubmit={handleSubmit} className="bg-gray-200 text-black max-w-6xl mx-auto p-10 rounded-lg space-y-12">
         {/* Meet and Greet */}
         <div className="grid md:grid-cols-3 gap-6">
