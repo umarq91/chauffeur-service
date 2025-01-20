@@ -17,7 +17,6 @@ function App() {
   return (
     <>
   <BrowserRouter>
-  
     <Navbar/>
   <Routes>
     <Route path='/' element={<LandingPage/>} exact=''/>
@@ -27,9 +26,7 @@ function App() {
     <Route path='/booking/planmytrip' element={<MultipleRequests/>}/>
     <Route path='/contact' element={<ContactUsPage/>}/>
     <Route path='/about' element={<AboutPage/>}/>
-
     <Route path='*' element={<NotFound/>} exact=''/>
-
   </Routes>
   <Footer/>
   </BrowserRouter>

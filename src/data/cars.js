@@ -7,7 +7,8 @@ const carsData = [
     numberofSuitcases: 2,
     description: 'A comfortable sedan with high-end features and a smooth driving experience. The Toyota Camry offers a refined interior, advanced safety features, and a reputation for reliability. With a spacious cabin, it accommodates up to four passengers and two suitcases, making it an ideal choice for both business trips and family vacations.',
     cancellationPolicy: 'Free cancellation up to 72 hours before pick-up',
-    policy: 'On request'
+    policy: 'On request',
+    perHour: 3000
   },
   {
     name: 'Honda Accord',
@@ -16,7 +17,8 @@ const carsData = [
     numberofSuitcases: 3,
     description: 'A reliable and spacious sedan with modern amenities. The Honda Accord is known for its comfort, efficiency, and stylish design. It offers ample room for five passengers and three suitcases, ensuring a pleasant and practical ride for any occasion. Advanced technology and safety features enhance the driving experience.',
     cancellationPolicy: 'Free cancellation up to 48 hours before pick-up',
-    policy: 'On request'
+    policy: 'On request',
+    perHour: 1000
   },
   {
     name: 'Van',
@@ -25,7 +27,8 @@ const carsData = [
     numberofSuitcases: 5,
     description: 'A luxury SUV offering premium features and plenty of space. The BMW X5 combines performance, luxury, and versatility. With seating for seven and space for five suitcases, it is perfect for long trips and group travel. High-end interior materials, cutting-edge technology, and powerful performance make every journey enjoyable.',
     cancellationPolicy: 'Free cancellation up to 24 hours before pick-up',
-    policy: 'On request'
+    policy: 'On request',
+    perHour: 2000
   },
   {
     name: 'Honda Small Rs Concept Car',
@@ -34,7 +37,8 @@ const carsData = [
     numberofSuitcases: 5,
     description: 'A luxury SUV offering premium features and plenty of space. The BMW X5 combines performance, luxury, and versatility. With seating for seven and space for five suitcases, it is perfect for long trips and group travel. High-end interior materials, cutting-edge technology, and powerful performance make every journey enjoyable.',
     cancellationPolicy: 'Free cancellation up to 24 hours before pick-up',
-    policy: 'On request'
+    policy: 'On request',
+    perHour: 1000
   },
   {
     name: 'Luxury Car',
@@ -43,7 +47,8 @@ const carsData = [
     numberofSuitcases: 5,
     description: 'A luxury SUV offering premium features and plenty of space. The BMW X5 combines performance, luxury, and versatility. With seating for seven and space for five suitcases, it is perfect for long trips and group travel. High-end interior materials, cutting-edge technology, and powerful performance make every journey enjoyable.',
     cancellationPolicy: 'Free cancellation up to 24 hours before pick-up',
-    policy: 'On request'
+    policy: 'On request',
+    perHour: 1000
   },
   {
     name: 'Van',

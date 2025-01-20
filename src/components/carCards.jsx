@@ -9,9 +9,10 @@ import {
 } from '@/components/ui/dialog';
 
 import { motion } from 'framer-motion';
-import { FaUsers, FaSuitcase } from 'react-icons/fa';
+import { FaUsers, FaSuitcase,FaMoneyBill } from 'react-icons/fa';
 
-function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleChange }) {
+
+function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleChange,hours,bill,setHours ,setBill}) {
   return (
     <motion.div
       className="flex flex-col lg:flex-row mb-8 bg-gray-50 p-1 md:p-6 rounded-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
@@ -41,6 +42,10 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
             <div className="flex items-center">
               <FaSuitcase className="mr-2 text-blue-500" />{" "}
               {car.numberofSuitcases} Suitcases
+            </div>
+            <div className="flex mx-3 items-center">
+              <FaMoneyBill className="mr-2 text-blue-500" />{" "}
+              {car.perHour} PKR per hour
             </div>
           </div>
         </div>
@@ -144,6 +149,36 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
                       className="w-full p-2 border border-gray-300 rounded"
                       value={userInfo.flightNumber}
                       onChange={handleChange}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="flightNumber" className="block text-gray-700">
+                      Total Hours
+                    </label>
+                    <input
+                      type="number"
+                      id="hours"
+                      name="hours"
+                      className="w-full p-2 border border-gray-300 rounded"
+                      value={hours}
+                      onChange={(e) => {
+                        const updatedHours = Number(e.target.value);
+                        setHours(updatedHours);
+                        setBill(updatedHours * car.perHour);
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="flightNumber" className="block text-gray-700">
+                      Total Bill (Not editable)
+                    </label>
+                    <input
+                      type="text"
+                      id="bill"
+                      name="bill"
+                      className="w-full p-2 border border-gray-300 rounded"
+                      value={hours * car.perHour}
+                      disabled
                     />
                   </div>
                   <div>

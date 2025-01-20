@@ -11,12 +11,20 @@ function HeroPage() {
   const [pickUpLocation, setPickUpLocation] = useState('');
   const [dropOffLocation, setDropOffLocation] = useState('');
   const [days, setDays] = useState(1);
+  const [hours, setHours] = useState(1);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!startDate || !time || !pickUpLocation || (service === 'airportTransfer' && !dropOffLocation) || (service === 'fullDayChauffeur' && (!days || days < 1 || days > 8))) {
+    if (
+      !startDate ||
+      !time ||
+      !pickUpLocation ||
+      (service === 'airportTransfer' && !dropOffLocation) ||
+      (service === 'fullDayChauffeur' && (!days || days < 1 || days > 8)) ||
+      (service === 'hourlyChauffeur' && (!hours || hours < 1 || hours > 12))
+    ) {
       setErrorMessage('Please fill all the fields correctly.');
       return;
     }
@@ -27,58 +35,53 @@ function HeroPage() {
       pickUpLocation,
       dropOffLocation: service === 'airportTransfer' ? dropOffLocation : undefined,
       days: service === 'fullDayChauffeur' ? days : undefined,
-      service
+      hours: service === 'hourlyChauffeur' ? hours : undefined,
+      service,
     }).toString();
 
     navigate(`/booking?${queryParams}`);
   };
 
   return (
-    <div 
+    <div
       className="relative min-h-screen p-10 w-full bg-cover bg-blue-500 flex items-center"
-      style={{ backgroundImage: 'url(https://img.freepik.com/premium-photo/group-business-people-with-lit-background-mixed-media_641298-12027.jpg)' }}
+      style={{
+        backgroundImage:
+          'url(https://img.freepik.com/premium-photo/group-business-people-with-lit-background-mixed-media_641298-12027.jpg)',
+      }}
     >
       <div className="absolute inset-0 bg-black opacity-50 z-10"></div> {/* Overlay */}
-
       <div className="container mx-auto px-4 flex flex-col relative z-20">
-        {/* left */}
         <div className="text-left text-white mb-5 md:mb-4">
           <h1 className="text-4xl font-bold mb-4 md:w-1/2">PREMIUM SERVICES TAILORED FOR YOU</h1>
           <p className="text-xl">International Ground Transportation and more. Make Your Online Reservation</p>
         </div>
-        {/* Right */}
         <div className="md:w-2/3 self-center">
           <div className="bg-white p-8 rounded shadow-lg w-full max-w-7xl">
             <div className="flex flex-wrap gap-2 justify-center mb-6">
               <button
                 onClick={() => setService('airportTransfer')}
-                className={`px-4 py-2 rounded-md ${service === 'airportTransfer' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
+                className={`px-4 py-2 rounded-md ${
+                  service === 'airportTransfer' ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+                }`}
               >
                 Airport Transfer
               </button>
               <button
                 onClick={() => setService('fullDayChauffeur')}
-                className={`px-4 py-2 rounded-md ${service === 'fullDayChauffeur' ? 'bg-indigo-600 text-white' : 'bg-gray-200'}`}
+                className={`px-4 py-2 rounded-md ${
+                  service === 'fullDayChauffeur' ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+                }`}
               >
                 Full Day Chauffeur
               </button>
               <button
-                onClick={() => navigate('/booking/meetngreet')}
-                className={`px-4 py-2 rounded-md hover:bg-indigo-600 hover:text-white bg-gray-200`}
+                onClick={() => setService('hourlyChauffeur')}
+                className={`px-4 py-2 rounded-md ${
+                  service === 'hourlyChauffeur' ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+                }`}
               >
-                MEET & GREET
-              </button>
-              <button
-                onClick={() => navigate('/booking/busesncoaches')}
-                className={`px-4 py-2 rounded-md hover:bg-indigo-600 hover:text-white  bg-gray-200`}
-              >
-                BUSES & COACHES
-              </button>
-              <button
-                onClick={() => navigate('/booking/planmytrip')}
-                className={`px-4 py-2 rounded-md hover:bg-indigo-600 hover:text-white  bg-gray-200`}
-              >
-                MULTIPLE REQUESTS
+                Hourly Chauffeur
               </button>
             </div>
             <form onSubmit={handleSubmit} className="flex flex-wrap bg-white p-7 gap-4 items-center">
@@ -114,7 +117,7 @@ function HeroPage() {
                   className="mt-1 p-1.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
               </div>
-              {service === 'airportTransfer' ? (
+              {service === 'airportTransfer' && (
                 <div className="flex-1 min-w-[250px]">
                   <label className="block text-gray-600 text-sm text-left">Drop Off Location</label>
                   <input
@@ -125,7 +128,8 @@ function HeroPage() {
                     className="mt-1 p-1.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                 </div>
-              ) : (
+              )}
+              {service === 'fullDayChauffeur' && (
                 <div className="flex-1 min-w-[250px]">
                   <label className="block text-gray-600 text-sm text-left">Days</label>
                   <input
@@ -138,6 +142,19 @@ function HeroPage() {
                   />
                 </div>
               )}
+              {service === 'hourlyChauffeur' && (
+                <div className="flex-1 min-w-[250px]">
+                  <label className="block text-gray-600 text-sm text-left">Hours</label>
+                  <input
+                    type="number"
+                    value={hours}
+                    onChange={(e) => setHours(e.target.value)}
+                    min="1"
+                    max="12"
+                    className="mt-1 p-1.5 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  />
+                </div>
+              )}
               <button
                 type="submit"
                 className="mt-4 md:mt-0 w-full md:w-auto bg-indigo-600 text-white py-2 px-8 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -145,11 +162,7 @@ function HeroPage() {
                 Book
               </button>
             </form>
-            {errorMessage && (
-              <div className="mt-4 text-red-600 text-center">
-                {errorMessage}
-              </div>
-            )}
+            {errorMessage && <div className="mt-4 text-red-600 text-center">{errorMessage}</div>}
           </div>
         </div>
       </div>
