@@ -13,6 +13,7 @@ import { FaUsers, FaSuitcase,FaMoneyBill } from 'react-icons/fa';
 
 
 function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleChange,hours,bill,setHours ,setBill}) {
+  
   return (
     <motion.div
       className="flex flex-col lg:flex-row mb-8 bg-gray-50 p-1 md:p-6 rounded-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
@@ -22,7 +23,7 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
     >
       <img
         className="w-full lg:w-[35%] rounded-lg object-cover mb-4 md:mb-0"
-        src={car.img}
+        src={car.image_url}
         alt={car.name}
       />
       <div className="w-full lg:w-2/3 p-4 flex flex-col justify-between">
@@ -30,22 +31,22 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold text-gray-800">{car.name}</h2>
             <span className="bg-gray-400 text-white px-3 py-1 rounded-md text-sm">
-              {car.policy}
+            On request
             </span>
           </div>
           <p className="mt-2 text-xs text-gray-700">{car.description}</p>
           <div className="flex flex-col md:flex-row mt-4 text-gray-600">
             <div className="flex items-center mr-6 mb-2 md:mb-0">
-              <FaUsers className="mr-2 text-blue-500" /> {car.numberofPeople}{" "}
+              <FaUsers className="mr-2 text-blue-500" /> {car.capacity}{" "}
               Passengers
             </div>
             <div className="flex items-center">
               <FaSuitcase className="mr-2 text-blue-500" />{" "}
-              {car.numberofSuitcases} Suitcases
+              {car.suitcase_capacity} Suitcases
             </div>
             <div className="flex mx-3 items-center">
               <FaMoneyBill className="mr-2 text-blue-500" />{" "}
-              {car.perHour} PKR per hour
+              {car.price_per_hour} PKR per hour
             </div>
           </div>
         </div>
@@ -205,7 +206,7 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
               </form>
             </DialogContent>
           </Dialog>
-          <div className="text-gray-400 text-sm">{car.cancellationPolicy}</div>
+          <div className="text-gray-400 text-sm">Up to 72 hours cancellation policy</div>
         </div>
       </div>
     </motion.div>

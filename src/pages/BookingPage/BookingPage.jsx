@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import emailjs from "emailjs-com";
-import { carsData } from "@/data/cars";
 import CarCards from "@/components/carCards";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/db";
 
 function BookingPage() {
   const { toast } = useToast();
@@ -18,13 +18,14 @@ function BookingPage() {
   const initalHours = queryParams.get("hours") || 1;
   const service = queryParams.get("service");
   let navigate = useNavigate();
+  const [cars, setCars] = useState([]);
 
   const [passengers, setPassengers] = useState("");
   const [suitcases, setSuitcases] = useState("");
   const [selectedCar, setSelectedCar] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [hours,setHours] = useState(initalHours)
-  const [bill,setBill] = useState(0)
+  const [hours, setHours] = useState(initalHours);
+  const [bill, setBill] = useState(0);
 
   const [userInfo, setUserInfo] = useState({
     fullName: "",
@@ -46,8 +47,20 @@ function BookingPage() {
     luggage: "",
   };
 
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const carsd = await supabase.from("cars").select("*");
+        setCars(carsd.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCars();
+  }, []);
+
   // Filter cars based on passengers and suitcases
-  const filteredCars = carsData.filter((car) => {
+  const filteredCars = cars?.filter((car) => {
     const meetsPassengerCriteria =
       passengers === "" || car.numberofPeople >= parseInt(passengers);
     const meetsSuitcaseCriteria =
