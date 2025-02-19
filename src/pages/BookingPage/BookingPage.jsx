@@ -14,7 +14,7 @@ function BookingPage() {
   const time = queryParams.get("time");
   const pickUpLocation = queryParams.get("pickUpLocation");
   const dropOffLocation = queryParams.get("dropOffLocation");
-  const days = queryParams.get("days");
+  const initialDays = queryParams.get("days");
   const initalHours = queryParams.get("hours") || 1;
   const service = queryParams.get("service");
   let navigate = useNavigate();
@@ -25,6 +25,7 @@ function BookingPage() {
   const [selectedCar, setSelectedCar] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [hours, setHours] = useState(initalHours);
+  const [days, setDays] = useState(initialDays);
   const [bill, setBill] = useState(0);
 
   const [userInfo, setUserInfo] = useState({
@@ -62,16 +63,16 @@ function BookingPage() {
   // Filter cars based on passengers and suitcases
   const filteredCars = cars?.filter((car) => {
     const meetsPassengerCriteria =
-      passengers === "" || car.numberofPeople >= parseInt(passengers);
+      car.capacity >= parseInt(passengers) || passengers === "";
     const meetsSuitcaseCriteria =
-      suitcases === "" || car.numberofSuitcases >= parseInt(suitcases);
+      car.suitcase_capacity >= parseInt(suitcases) || suitcases === "";
     return meetsPassengerCriteria && meetsSuitcaseCriteria;
   });
 
   const handleBookClick = (car) => {
     setSelectedCar(car);
-    setPassengers(car.numberofPeople);
-    setSuitcases(car.numberofSuitcases);
+    setPassengers(car.capacity);
+    setSuitcases(car.suitcase_capacity);
     setShowModal(true);
   };
 
@@ -85,138 +86,167 @@ function BookingPage() {
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  const handleModalSubmit = (e) => {
+  const handleModalSubmit = async (e) => {
     e.preventDefault();
-    const emailContent = `
-    Offer Enquiry
+    console.log({
+      car_id: selectedCar.id,
+      date: date,
+      time: time,
+      pickup_location: pickUpLocation,
+      dropoff_location: dropOffLocation === undefined && null,
+      days: days ? days : null,
+      hours: hours ? hours : null,
+      bill: bill,
+      customer_name: userInfo.fullName,
+      customer_email: userInfo.email,
+      customer_phone: userInfo.phoneNumber,
+      flight_number: userInfo.flightNumber,
+      message: userInfo.message,
+    });
+    await supabase.from("bookings").insert({
+      car_id: selectedCar.id,
+      date: date,
+      time: time,
+      pickup_location: pickUpLocation,
+      dropoff_location: dropOffLocation ? dropOffLocation : null,
+      days: days ? Number(days) : 0,
+      hours: hours ? Number(hours) : 0,
+      bill: bill,
+      customer_name: userInfo.fullName,
+      customer_email: userInfo.email,
+      customer_phone: userInfo.phoneNumber,
+      flight_number: userInfo.flightNumber,
+      message: userInfo.message,
+    });
+    window.location.href="/"
+    //   const emailContent = `
+    //   Offer Enquiry
 
-    This is a new offer enquiry for a Apollo transport service.
+    //   This is a new offer enquiry for a Apollo transport service.
 
-    Booking Details:
-    Date: ${date}
-    Time: ${time}
-    Pick Up Location: ${pickUpLocation}
-    ${dropOffLocation && ` Drop Off Location: ${dropOffLocation}`}
-   ${days && ` Days: ${days}`}
-    Service: ${service}
-    bill : ${bill}
+    //   Booking Details:
+    //   Date: ${date}
+    //   Time: ${time}
+    //   Pick Up Location: ${pickUpLocation}
+    //   ${dropOffLocation && ` Drop Off Location: ${dropOffLocation}`}
+    //  ${days && ` Days: ${days}`}
+    //   Service: ${service}
+    //   bill : ${bill}
 
-    
-    Car Name: ${selectedCar.name}
-    PaxCapacity: ${passengers}
-    luggageCapacity: ${suitcases}
+    //   Car Name: ${selectedCar.name}
+    //   PaxCapacity: ${passengers}
+    //   luggageCapacity: ${suitcases}
 
-    User Information:
-    Full Name: ${userInfo.fullName}
-    Email: ${userInfo.email}
-    Flight Number: ${userInfo.flightNumber}
-    phone number : ${userInfo.phoneNumber}
-    pax: ${userInfo.numberOfPeople}
-    luggage: ${userInfo.numberOfSuitcases}
-    Message: ${userInfo.message}
-  `;
+    //   User Information:
+    //   Full Name: ${userInfo.fullName}
+    //   Email: ${userInfo.email}
+    //   Flight Number: ${userInfo.flightNumber}
+    //   phone number : ${userInfo.phoneNumber}
+    //   pax: ${userInfo.numberOfPeople}
+    //   luggage: ${userInfo.numberOfSuitcases}
+    //   Message: ${userInfo.message}
+    // `;
 
-    emailjs
-      .send(
-        "service_oxx754x",
-        "template_7uq7eqg",
-        {
-          to_name: "Company Name", // Company Name
-          from_name: userInfo.fullName,
-          message: emailContent,
-        },
-        "ZB0s5MrgpcBV07keG"
-      )
-      .then(
-        (response) => {
-          console.log("SUCCESS!", response.status, response.text);
-          setShowModal(false);
-          setSelectedCar(null);
-          setUserInfo(initialUserInfo);
-          toast({
-            title: "Email Sent",
-            description: `Requested a quote for ${selectedCar.name}`,
-            className: "bg-white text-gray-800",
-          });
+    //   emailjs
+    //     .send(
+    //       "service_oxx754x",
+    //       "template_7uq7eqg",
+    //       {
+    //         to_name: "Company Name", // Company Name
+    //         from_name: userInfo.fullName,
+    //         message: emailContent,
+    //       },
+    //       "ZB0s5MrgpcBV07keG"
+    //     )
+    //     .then(
+    //       (response) => {
+    //         console.log("SUCCESS!", response.status, response.text);
+    //         setShowModal(false);
+    //         setSelectedCar(null);
+    //         setUserInfo(initialUserInfo);
+    //         toast({
+    //           title: "Email Sent",
+    //           description: `Requested a quote for ${selectedCar.name}`,
+    //           className: "bg-white text-gray-800",
+    //         });
 
-          // Send Copy To the Client email as well
-          const clientMessage = `
-        Dear ${userInfo.fullName},
+    //         // Send Copy To the Client email as well
+    //         const clientMessage = `
+    //       Dear ${userInfo.fullName},
 
-        Thank you for choosing our services for your transportation needs. 
+    //       Thank you for choosing our services for your transportation needs.
 
-        We have successfully received your booking request with the following details:
+    //       We have successfully received your booking request with the following details:
 
-        **Booking Details:**
-        Date: ${date}
-        Time: ${time}
-        Pick Up Location: ${pickUpLocation}
-        ${dropOffLocation ? `Drop Off Location: ${dropOffLocation}` : ""}
-        ${days ? `Days: ${days}` : ""}
-        Service: ${service}
-        total Bill : ${userInfo.totalBill}
+    //       **Booking Details:**
+    //       Date: ${date}
+    //       Time: ${time}
+    //       Pick Up Location: ${pickUpLocation}
+    //       ${dropOffLocation ? `Drop Off Location: ${dropOffLocation}` : ""}
+    //       ${days ? `Days: ${days}` : ""}
+    //       Service: ${service}
+    //       total Bill : ${userInfo.totalBill}
 
-        **Car Details:**
-        Car Name: ${selectedCar.name}
-        Pax Capacity: ${passengers}
-        Luggage Capacity: ${suitcases}
+    //       **Car Details:**
+    //       Car Name: ${selectedCar.name}
+    //       Pax Capacity: ${passengers}
+    //       Luggage Capacity: ${suitcases}
 
-        **User Information:**
-        Full Name: ${userInfo.fullName}
-        Email: ${userInfo.email}
-        Phone Number: ${userInfo.phoneNumber}
-        Flight Number: ${userInfo.flightNumber}
-        Message: ${userInfo.message}
+    //       **User Information:**
+    //       Full Name: ${userInfo.fullName}
+    //       Email: ${userInfo.email}
+    //       Phone Number: ${userInfo.phoneNumber}
+    //       Flight Number: ${userInfo.flightNumber}
+    //       Message: ${userInfo.message}
 
-        Our team is now processing your request and will get back to you shortly with a confirmation and further details.
+    //       Our team is now processing your request and will get back to you shortly with a confirmation and further details.
 
-        If you have any questions or need to make changes to your booking, please do not hesitate to contact us.
+    //       If you have any questions or need to make changes to your booking, please do not hesitate to contact us.
 
-        For cancellation or additional information, please do not hesitate to contact us.
-        Email : info@atsworld.com
-        
+    //       For cancellation or additional information, please do not hesitate to contact us.
+    //       Email : info@atsworld.com
 
-        Best regards,
-        Apollo transport service
-        `;
+    //       Best regards,
+    //       Apollo transport service
+    //       `;
 
-          emailjs
-            .send(
-              "service_oxx754x",
-              "template_fdjemvn",
-              {
-                to_email: userInfo.email,
-                from_name: "Luxury Transport & Chauffeur Service",
-                message: clientMessage,
-              },
-              "ZB0s5MrgpcBV07keG"
-            )
-            .then((response) => {
-              console.log("SUCCESS!", response.status, response.text);
-            })
-            .catch((error) => {
-              toast({
-                title: "Email Failed",
-                description: "Failed to send booking request.",
-                className: "bg-white text-red-800",
-              });
-            });
-        },
-        (error) => {
-          console.log("FAILED...", error);
-          setShowModal(false);
-          setSelectedCar(null);
-          setUserInfo(initialUserInfo);
-          toast({
-            title: "Email Failed",
-            description: "Failed to send booking request.",
-            className: "bg-white text-red-800",
-          });
-        }
-      );
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+    //         emailjs
+    //           .send(
+    //             "service_oxx754x",
+    //             "template_fdjemvn",
+    //             {
+    //               to_email: userInfo.email,
+    //               from_name: "Luxury Transport & Chauffeur Service",
+    //               message: clientMessage,
+    //             },
+    //             "ZB0s5MrgpcBV07keG"
+    //           )
+    //           .then((response) => {
+    //             console.log("SUCCESS!", response.status, response.text);
+    //           })
+    //           .catch((error) => {
+    //             toast({
+    //               title: "Email Failed",
+    //               description: "Failed to send booking request.",
+    //               className: "bg-white text-red-800",
+    //             });
+    //           });
+    //       },
+    //       (error) => {
+    //         console.log("FAILED...", error);
+    //         setShowModal(false);
+    //         setSelectedCar(null);
+    //         setUserInfo(initialUserInfo);
+    //         toast({
+    //           title: "Email Failed",
+    //           description: "Failed to send booking request.",
+    //           className: "bg-white text-red-800",
+    //         });
+    //       }
+    //     );
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 2000);
   };
 
   return (
@@ -298,7 +328,7 @@ function BookingPage() {
                 onChange={(e) => setPassengers(e.target.value)}
               >
                 <option value="">Any</option>
-                {[...Array(7)].map((_, i) => (
+                {[...Array(7)]?.map((_, i) => (
                   <option key={i + 1} value={i + 1}>
                     {i + 1}
                   </option>
@@ -330,7 +360,7 @@ function BookingPage() {
         </div>
 
         {/* Car Listings */}
-        {filteredCars.map((car) => (
+        {filteredCars?.map((car) => (
           <CarCards
             key={car.name}
             car={car}
@@ -338,9 +368,12 @@ function BookingPage() {
             userInfo={userInfo}
             handleChange={handleChange}
             handleBookClick={handleBookClick}
+            service={service} // new added
             bill={bill}
             hours={hours}
             setHours={setHours}
+            days={days}
+            setDays={setDays}
             setBill={setBill}
           />
         ))}

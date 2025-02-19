@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 const images = [
   { src: "https://i0.wp.com/silimo.co/wp-content/uploads/2024/03/chauffeur-service.jpg", title: "Chauffeur Service", link: "" },
   { src: "https://qatarchauffeurs.com/wp-content/uploads/2022/02/airportservice2.jpg", title: "Airport Transfer Service", link: "" },
-  { src: "https://qph.cf2.quoracdn.net/main-qimg-b47a4c74fc75b824028555b777220782", title: "Meet & Greet", link: "/booking/meetngreet" },
-  { src: "https://www.nationalbuscharter.com/blog/wp-content/uploads/2021/02/national-charter-bus-fleet.jpg", title: "Buses and Coaches", link: "/booking/busesncoaches" },
+  // { src: "https://qph.cf2.quoracdn.net/main-qimg-b47a4c74fc75b824028555b777220782", title: "Meet & Greet", link: "/booking/meetngreet" },
+  // { src: "https://www.nationalbuscharter.com/blog/wp-content/uploads/2021/02/national-charter-bus-fleet.jpg", title: "Buses and Coaches", link: "/booking/busesncoaches" },
 ];
 
 function WhatWeOffer() {

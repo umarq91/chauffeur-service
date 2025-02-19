@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,14 +6,25 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 
-import { motion } from 'framer-motion';
-import { FaUsers, FaSuitcase,FaMoneyBill } from 'react-icons/fa';
+import { motion } from "framer-motion";
+import { FaUsers, FaSuitcase, FaMoneyBill } from "react-icons/fa";
 
-
-function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleChange,hours,bill,setHours ,setBill}) {
-  
+function CarCards({
+  car,
+  handleModalSubmit,
+  handleBookClick,
+  userInfo,
+  handleChange,
+  service, // new added
+  hours,
+  bill,
+  setHours,
+  setBill,
+  days,
+  setDays,
+}) {
   return (
     <motion.div
       className="flex flex-col lg:flex-row mb-8 bg-gray-50 p-1 md:p-6 rounded-lg cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
@@ -31,7 +42,7 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-semibold text-gray-800">{car.name}</h2>
             <span className="bg-gray-400 text-white px-3 py-1 rounded-md text-sm">
-            On request
+              On request
             </span>
           </div>
           <p className="mt-2 text-xs text-gray-700">{car.description}</p>
@@ -46,7 +57,11 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
             </div>
             <div className="flex mx-3 items-center">
               <FaMoneyBill className="mr-2 text-blue-500" />{" "}
-              {car.price_per_hour} PKR per hour
+              {service === "fullDayChauffeur" ? (
+                <>{car.price_per_day} PKR per Day</>
+              ) : (
+                <>{car.price_per_hour} PKR per hour</>
+              )}
             </div>
           </div>
         </div>
@@ -98,7 +113,10 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
                     />
                   </div>
                   <div>
-                    <label htmlFor="phoneNumber" className="block text-gray-700">
+                    <label
+                      htmlFor="phoneNumber"
+                      className="block text-gray-700"
+                    >
                       Phone Number
                     </label>
                     <input
@@ -112,7 +130,10 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
                     />
                   </div>
                   <div>
-                    <label htmlFor="numberOfPeople" className="block text-gray-700">
+                    <label
+                      htmlFor="numberOfPeople"
+                      className="block text-gray-700"
+                    >
                       Number of People
                     </label>
                     <input
@@ -122,11 +143,16 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
                       className="w-full p-2 border border-gray-300 rounded"
                       value={userInfo.numberOfPeople}
                       onChange={handleChange}
+                      min={0}
+                      max={car.capacity}
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="numberOfSuitcases" className="block text-gray-700">
+                    <label
+                      htmlFor="numberOfSuitcases"
+                      className="block text-gray-700"
+                    >
                       Number of Suitcases
                     </label>
                     <input
@@ -136,11 +162,16 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
                       className="w-full p-2 border border-gray-300 rounded"
                       value={userInfo.numberOfSuitcases}
                       onChange={handleChange}
+                      min={0}
+                      max={car.suitcase_capacity}
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="flightNumber" className="block text-gray-700">
+                    <label
+                      htmlFor="flightNumber"
+                      className="block text-gray-700"
+                    >
                       Flight Number
                     </label>
                     <input
@@ -152,25 +183,58 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
                       onChange={handleChange}
                     />
                   </div>
+                  {/* new added */}
+                  {service === "fullDayChauffeur" ? (
+                    <div>
+                      <label
+                        htmlFor="flightNumber"
+                        className="block text-gray-700"
+                      >
+                        Total Days
+                      </label>
+                      <input
+                        type="number"
+                        id="days"
+                        name="days"
+                        className="w-full p-2 border border-gray-300 rounded"
+                        value={days}
+                        onChange={(e) => {
+                          const updatedDays = Number(e.target.value);
+                          setDays(updatedDays);
+                          console.log(updatedDays , car.price_per_day);
+                          
+                          setBill(updatedDays * car.price_per_day);
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <label
+                        htmlFor="flightNumber"
+                        className="block text-gray-700"
+                      >
+                        Total Hours
+                      </label>
+                      <input
+                        type="number"
+                        id="hours"
+                        name="hours"
+                        className="w-full p-2 border border-gray-300 rounded"
+                        value={hours}
+                        onChange={(e) => {
+                          const updatedHours = Number(e.target.value);
+                          setHours(updatedHours);
+                          setBill(updatedHours * car.price_per_hour);
+                        }}
+                      />
+                    </div>
+                  )}
+
                   <div>
-                    <label htmlFor="flightNumber" className="block text-gray-700">
-                      Total Hours
-                    </label>
-                    <input
-                      type="number"
-                      id="hours"
-                      name="hours"
-                      className="w-full p-2 border border-gray-300 rounded"
-                      value={hours}
-                      onChange={(e) => {
-                        const updatedHours = Number(e.target.value);
-                        setHours(updatedHours);
-                        setBill(updatedHours * car.perHour);
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="flightNumber" className="block text-gray-700">
+                    <label
+                      htmlFor="flightNumber"
+                      className="block text-gray-700"
+                    >
                       Total Bill (Not editable)
                     </label>
                     <input
@@ -178,7 +242,7 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
                       id="bill"
                       name="bill"
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={hours * car.perHour}
+                      value={service === "fullDayChauffeur" ? days * car.price_per_day : hours * car.price_per_hour}
                       disabled
                     />
                   </div>
@@ -206,7 +270,9 @@ function CarCards({ car, handleModalSubmit, handleBookClick, userInfo, handleCha
               </form>
             </DialogContent>
           </Dialog>
-          <div className="text-gray-400 text-sm">Up to 72 hours cancellation policy</div>
+          <div className="text-gray-400 text-sm">
+            Up to 72 hours cancellation policy
+          </div>
         </div>
       </div>
     </motion.div>

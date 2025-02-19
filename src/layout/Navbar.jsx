@@ -2,19 +2,20 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdClose } from "react-icons/md";
+import { useUser } from "@/UserContext";
 const Navbar = () => {
   const [menuOpened, setMenuOpened] = useState(false);
-
+  const { user } = useUser();
   const toggleMenu = () => setMenuOpened(!menuOpened);
 
   const navbarOptions = [
     {
       label: "Home",
-      link: "/"
+      link: "/",
     },
     {
       label: "Contact Us",
-      link: "/contact"
+      link: "/contact",
     },
     // {
     //   label: "Our Services",
@@ -22,8 +23,8 @@ const Navbar = () => {
     // },
     {
       label: "About Us",
-      link: "/about"
-    }
+      link: "/about",
+    },
   ];
 
   return (
@@ -47,6 +48,26 @@ const Navbar = () => {
             <span className="inline-block w-0 h-[2px] bg-black -bottom-2 transition-all duration-500 group-hover:w-full absolute"></span>
           </Link>
         ))}
+
+        {user ? (
+              <Link
+              key={"admin"}
+              to={"/admin"}
+              className="flex mx-8  font-md relative text-gray-900 hover:text-blue-900 group"
+            >
+              {"Bookings"}
+              <span className="inline-block w-0 h-[2px] bg-black -bottom-2 transition-all duration-500 group-hover:w-full absolute"></span>
+            </Link>
+        ) : (
+          <Link
+          key={"login"}
+          to={"/login"}
+          className="flex mx-8  font-md relative text-gray-900 hover:text-blue-900 group"
+        >
+          {"Admin Login"}
+          <span className="inline-block w-0 h-[2px] bg-black -bottom-2 transition-all duration-500 group-hover:w-full absolute"></span>
+        </Link>
+        )}
       </ul>
 
       {/* Mobile */}
